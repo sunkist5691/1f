@@ -1,26 +1,65 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react'
+import { Switch, Route, useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { createOrUpdateUserActionCreator } from './store/slices'
+import Home from './components/Home/Home'
+import Login from './components/Login/Login'
+import Signup from './components/Signup/Signup'
+import Header from './components/Header/Header'
+import Footer from './components/Footer/Footer'
+import AuthService from './service/auth-service'
+import UserService from './service/user-service'
+import styles from './App.module.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface Props {
+  authService: AuthService
+  userService: UserService
 }
 
-export default App;
+const App: React.FC<Props> = ({ authService, userService }) => {
+  const history = useHistory()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    authService
+      .checkUser()
+      .then(async (user: any) => {
+        const foundUser = await userService.getCurrentUser(user)
+        console.log('FOUND USER: ', foundUser)
+        if (foundUser && foundUser.email) {
+          dispatch(
+            createOrUpdateUserActionCreator({
+              id: foundUser.id,
+              name: foundUser.name,
+              email: foundUser.email,
+              role: foundUser.role,
+              token: user.idToken.jwtToken,
+            }),
+          )
+        }
+      })
+      .catch(() => {
+        console.error("APP.tsx --- CURRENT USER DOESN'T EXIST")
+      })
+  }, [history, dispatch, authService, userService])
+
+  return (
+    <div className={styles.app}>
+      <Header />
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/signup">
+          <Signup />
+        </Route>
+      </Switch>
+      <Footer />
+    </div>
+  )
+}
+
+export default App
