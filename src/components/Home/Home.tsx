@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { AiOutlineSearch } from 'react-icons/ai'
 import styles from './Home.module.css'
 
 const Home = () => {
@@ -13,7 +12,7 @@ const Home = () => {
       <div className={styles.home}>
         <div className={styles.brand}>Hand Shake</div>
         <div className={styles.search}>
-          <FontAwesomeIcon icon={faSearch} size="2x" color="gray" />
+          <AiOutlineSearch size="2.2rem" color="grey" />
           <input
             className={styles.searchBar}
             type="text"

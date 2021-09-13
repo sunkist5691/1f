@@ -20,26 +20,17 @@
   align-items: center;
 }
 
-.nav {
+.nav_mobile_icon {
   display: flex;
-  flex-wrap: wrap;
-  width: 250px;
-  justify-content: flex-end;
+  align-items: center;
 }
 
-.nav_button {
+.hamburger {
   cursor: pointer;
-  border: 0;
-  padding: 7px 10px;
-  font-size: 1.6rem;
-  border-radius: 2px;
-  background-color: transparent;
-  text-decoration: none;
-  color: black;
-  margin-left: 15px;
 }
 
-.nav_button:hover {
-  background-color: black;
-  color: white;
+@media screen and (max-width: 600px) {
+  .nav_mobile {
+    position: relative;
+  }
 }

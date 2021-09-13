@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { Switch, Route, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { createOrUpdateUserActionCreator } from './store/slices'
+import EmployerRoute from './routes/EmployerRoute'
+import EmployerPage from './components/EmployerPage/EmployerPage'
 import Home from './components/Home/Home'
 import Login from './components/Login/Login'
 import Signup from './components/Signup/Signup'
@@ -47,15 +49,10 @@ const App: React.FC<Props> = ({ authService, userService }) => {
     <div className={styles.app}>
       <Header />
       <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/signup">
-          <Signup />
-        </Route>
+        <Route path="/home" component={Home} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
+        <EmployerRoute path="/employer/:id" component={EmployerPage} />
       </Switch>
       <Footer />
     </div>

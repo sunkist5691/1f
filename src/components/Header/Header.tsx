@@ -1,48 +1,48 @@
-import React from 'react'
-import AuthService from '../../service/auth-service'
-import { useHistory, Link } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
-import { State } from '../../store/type'
-import { logoutActionCreator } from '../../store/slices'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHandshake } from '@fortawesome/free-solid-svg-icons'
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import styles from './Header.module.css'
+import { ImMenu3, ImMenu4 } from 'react-icons/im'
+import { FaRegHandshake } from 'react-icons/fa'
+import useWindowSize from '../../hooks/useWindowSize'
+import NavLinks from '../NavLinks/NavLinks'
 
 const Header: React.FC = () => {
-  const user = useSelector((state: State) => state.user)
-  const dispatch = useDispatch()
+  const [isMobile, width] = useWindowSize()
+  const [open, setOpen] = useState<boolean>(false)
   const history = useHistory()
-  const authService = new AuthService()
+  const hamburgerOpen = (
+    <ImMenu4
+      className={styles.hamburger}
+      size="3rem"
+      onClick={() => setOpen(!open)}
+    />
+  )
+  const hamburgerClose = (
+    <ImMenu3
+      className={styles.hamburger}
+      size="3rem"
+      onClick={() => setOpen(!open)}
+    />
+  )
 
-  const onLogout = () => {
-    authService.logout()
-    dispatch(logoutActionCreator(null))
-  }
+  const closeMobile = () => setOpen(false)
 
   return (
     <div className={styles.header}>
       <div className={styles.logo} onClick={() => history.push('/')}>
-        <FontAwesomeIcon icon={faHandshake} size="2x" />
+        <FaRegHandshake size="3rem" />
         <span className={styles.title}>Hand Shake</span>
       </div>
-      <div className={styles.nav}>
-        {user && user.token ? (
-          <Link className={styles.nav_button} to="/login" onClick={onLogout}>
-            Logout
-          </Link>
-        ) : (
-          <Link className={styles.nav_button} to="/login">
-            Login
-          </Link>
-        )}
-        {user && user.token ? (
-          <button className={styles.nav_button}>Saved List</button>
-        ) : (
-          <Link className={styles.nav_button} to="/signup">
-            Signup
-          </Link>
-        )}
-      </div>
+      {width <= 600 ? (
+        <div className={styles.nav_mobile}>
+          <div className={styles.nav_mobile_icon}>
+            {open ? hamburgerOpen : hamburgerClose}
+          </div>
+          {open && <NavLinks isMobile={isMobile} closeMobile={closeMobile} />}
+        </div>
+      ) : (
+        <NavLinks isMobile={isMobile} closeMobile={closeMobile} />
+      )}
     </div>
   )
 }
