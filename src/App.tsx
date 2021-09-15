@@ -3,12 +3,14 @@ import { Switch, Route, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { createOrUpdateUserActionCreator } from './store/slices'
 import EmployerRoute from './routes/EmployerRoute'
-import EmployerPage from './components/EmployerPage/EmployerPage'
+import CandidateRoute from './routes/CandidateRoute'
+import CompanyPage from './components/CompanyPage/CompanyPage'
+import CompanyPostPage from './components/CompanyPostPage/CompanyPostPage'
+import CompanyEditPage from './components/CompanyEditPage/CompanyEditPage'
+import ProfilePage from './components/ProfilePage/ProfilePage'
 import Home from './components/Home/Home'
 import Login from './components/Login/Login'
 import Signup from './components/Signup/Signup'
-import Header from './components/Header/Header'
-import Footer from './components/Footer/Footer'
 import AuthService from './service/auth-service'
 import UserService from './service/user-service'
 import styles from './App.module.css'
@@ -27,7 +29,7 @@ const App: React.FC<Props> = ({ authService, userService }) => {
       .checkUser()
       .then(async (user: any) => {
         const foundUser = await userService.getCurrentUser(user)
-        console.log('FOUND USER: ', foundUser)
+        console.log('App.tsx / FOUND USER: ', foundUser)
         if (foundUser && foundUser.email) {
           dispatch(
             createOrUpdateUserActionCreator({
@@ -47,14 +49,15 @@ const App: React.FC<Props> = ({ authService, userService }) => {
 
   return (
     <div className={styles.app}>
-      <Header />
       <Switch>
-        <Route path="/home" component={Home} />
+        <Route exact path={['/', '/home']} component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <EmployerRoute path="/employer/:id" component={EmployerPage} />
+        <EmployerRoute path="/company/post" component={CompanyPostPage} />
+        <EmployerRoute path="/company/edit" component={CompanyEditPage} />
+        <EmployerRoute path="/company/menu" component={CompanyPage} />
+        <CandidateRoute path="/profile" component={ProfilePage} />
       </Switch>
-      <Footer />
     </div>
   )
 }

@@ -7,11 +7,11 @@ import AuthService from '../../service/auth-service'
 import styles from './NavLinks.module.css'
 
 interface Props {
-  closeMobile: () => void
+  closeMobileMenu: () => void
   isMobile: boolean | number
 }
 
-const NavLinks: React.FC<Props> = ({ isMobile, closeMobile }) => {
+const NavLinks: React.FC<Props> = ({ isMobile, closeMobileMenu }) => {
   const user = useSelector((state: State) => state.user)
   const dispatch = useDispatch()
   const authService = new AuthService()
@@ -23,22 +23,29 @@ const NavLinks: React.FC<Props> = ({ isMobile, closeMobile }) => {
 
   return (
     <div className={styles.nav}>
+      <Link
+        className={styles.nav_button}
+        to="/home"
+        onClick={() => isMobile && closeMobileMenu()}
+      >
+        Home
+      </Link>
       {user && user.token && user.role === 'employer' && (
         <Link
           className={styles.nav_button}
-          to={`/employer/${user.id}`}
-          onClick={() => isMobile && closeMobile()}
+          to={`/company/menu`}
+          onClick={() => isMobile && closeMobileMenu()}
         >
-          My Page
+          Job
         </Link>
       )}
       {user && user.token && user.role === 'candidate' && (
         <Link
           className={styles.nav_button}
-          to={`/candidate/${user.id}`}
-          onClick={() => isMobile && closeMobile()}
+          to={`/profile/${user.id}`}
+          onClick={() => isMobile && closeMobileMenu()}
         >
-          My Page
+          Profile
         </Link>
       )}
       {user && user.token ? (
@@ -46,7 +53,7 @@ const NavLinks: React.FC<Props> = ({ isMobile, closeMobile }) => {
           className={styles.nav_button}
           to="/login"
           onClick={() => {
-            isMobile && closeMobile()
+            isMobile && closeMobileMenu()
             onLogout()
           }}
         >
@@ -56,7 +63,7 @@ const NavLinks: React.FC<Props> = ({ isMobile, closeMobile }) => {
         <Link
           className={styles.nav_button}
           to="/login"
-          onClick={() => isMobile && closeMobile()}
+          onClick={() => isMobile && closeMobileMenu()}
         >
           Login
         </Link>
@@ -67,7 +74,7 @@ const NavLinks: React.FC<Props> = ({ isMobile, closeMobile }) => {
         <Link
           className={styles.nav_button}
           to="/signup"
-          onClick={() => isMobile && closeMobile()}
+          onClick={() => isMobile && closeMobileMenu()}
         >
           Signup
         </Link>

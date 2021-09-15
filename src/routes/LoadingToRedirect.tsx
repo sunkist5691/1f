@@ -12,7 +12,6 @@ const LoadingToRedirect: React.FC = () => {
     }, 1000)
 
     count === 0 && history.push('/home')
-    console.log(count)
     return () => clearInterval(interval)
   }, [count, history])
 

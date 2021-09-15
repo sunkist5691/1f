@@ -25,11 +25,11 @@ const Header: React.FC = () => {
     />
   )
 
-  const closeMobile = () => setOpen(false)
+  const closeMobileMenu = () => setOpen(false)
 
   return (
     <div className={styles.header}>
-      <div className={styles.logo} onClick={() => history.push('/')}>
+      <div className={styles.logo} onClick={() => history.push('/home')}>
         <FaRegHandshake size="3rem" />
         <span className={styles.title}>Hand Shake</span>
       </div>
@@ -38,10 +38,12 @@ const Header: React.FC = () => {
           <div className={styles.nav_mobile_icon}>
             {open ? hamburgerOpen : hamburgerClose}
           </div>
-          {open && <NavLinks isMobile={isMobile} closeMobile={closeMobile} />}
+          {open && (
+            <NavLinks isMobile={isMobile} closeMobileMenu={closeMobileMenu} />
+          )}
         </div>
       ) : (
-        <NavLinks isMobile={isMobile} closeMobile={closeMobile} />
+        <NavLinks isMobile={isMobile} closeMobileMenu={closeMobileMenu} />
       )}
     </div>
   )

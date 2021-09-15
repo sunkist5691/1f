@@ -1,15 +1,15 @@
 .container {
   display: flex;
   flex-direction: column;
-  height: 70vh;
-  margin: 4rem 0;
+  height: 100vh;
 }
 
 .home {
   display: flex;
+  margin-top: 100px;
   flex-direction: column;
   align-items: center;
-  min-height: 25vh;
+  height: 100vh;
 }
 
 .brand {
@@ -42,4 +42,10 @@
 
 .searchBar:focus {
   outline: none;
+}
+
+@media screen and (max-width: 600px) {
+  .brand {
+    font-size: 6rem;
+  }
 }

@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
+import Header from '../Header/Header'
+import Footer from '../Footer/Footer'
 import styles from './Home.module.css'
 
 const Home = () => {
@@ -9,6 +11,7 @@ const Home = () => {
   }
   return (
     <div className={styles.container}>
+      <Header />
       <div className={styles.home}>
         <div className={styles.brand}>Hand Shake</div>
         <div className={styles.search}>
@@ -22,6 +25,7 @@ const Home = () => {
           />
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

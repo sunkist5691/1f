@@ -1,7 +1,7 @@
 .nav {
   display: flex;
   flex-wrap: wrap;
-  width: 295px;
+  width: 336px;
   justify-content: flex-end;
 }
 
@@ -31,6 +31,7 @@
     background-color: black;
     width: 100vw;
     right: -40px;
+    opacity: 0.8;
   }
   .nav_button {
     color: white;
@@ -41,5 +42,6 @@
 
   .nav_button:hover {
     color: blanchedalmond;
+    text-decoration: underline;
   }
 }

@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createOrUpdateUserActionCreator } from '../../store/slices'
 import { State } from '../../store/type'
 import styles from './Login.module.css'
+import Header from '../Header/Header'
+import Footer from '../Footer/Footer'
 import AuthService from '../../service/auth-service'
 import UserService from '../../service/user-service'
 
@@ -22,7 +24,7 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     // 만약 유저가 로그인이 되어있다면, homepage 로 redirecting 을 해라
-    if (user && user.token) history.push('/')
+    if (user && user.token) history.push('/home')
   }, [history, user])
 
   const onSubmit = (e: React.FormEvent) => {
@@ -46,7 +48,7 @@ const Login: React.FC = () => {
                 token: curUser.idToken.jwtToken,
               }),
             )
-            history.push('/')
+            history.push('/home')
           }
         })
         .catch((err) => setErrors('Incorrect Email and Password'))
@@ -56,26 +58,32 @@ const Login: React.FC = () => {
   }
   return (
     <div className={styles.login}>
-      <div className={styles.title}>Login</div>
-      <form className={styles.form} ref={formRef} onSubmit={onSubmit}>
-        <input
-          className={styles.input}
-          ref={emailRef}
-          type="email"
-          placeholder="Email"
-        />
-        <input
-          className={styles.input}
-          ref={passwordRef}
-          type="password"
-          placeholder="Password"
-        />
-        <button className={styles.button}>Login</button>
-        {errors && <p className={styles.error}>{errors}</p>}
-        <span className={styles.signup_link}>
-          Don't have an account? Signup <Link to="/signup">here</Link>
-        </span>
-      </form>
+      <div className={styles.login_sub}>
+        <Header />
+        <div className={styles.login_sub_two}>
+          <div className={styles.title}>Login</div>
+          <form className={styles.form} ref={formRef} onSubmit={onSubmit}>
+            <input
+              className={styles.input}
+              ref={emailRef}
+              type="email"
+              placeholder="Email"
+            />
+            <input
+              className={styles.input}
+              ref={passwordRef}
+              type="password"
+              placeholder="Password"
+            />
+            <button className={styles.button}>Login</button>
+            {errors && <p className={styles.error}>{errors}</p>}
+            <span className={styles.signup_link}>
+              Don't have an account? Signup <Link to="/signup">here</Link>
+            </span>
+          </form>
+        </div>
+      </div>
+      <Footer />
     </div>
   )
 }

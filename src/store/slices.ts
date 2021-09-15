@@ -1,5 +1,5 @@
 import logger from 'redux-logger'
-import { User } from './type'
+import { User, Job } from './type'
 import {
   combineReducers,
   configureStore,
@@ -19,15 +19,30 @@ const userSlice = createSlice({
   },
 })
 
+const jobSlice = createSlice({
+  name: 'job',
+  initialState: null as Job | null,
+  reducers: {
+    createOrUpdate: (state, { payload }: PayloadAction<Job>) => payload,
+    remove: (state) => null,
+  },
+})
+
 // actions
 export const {
   addOrUpdate: createOrUpdateUserActionCreator,
   logout: logoutActionCreator,
 } = userSlice.actions
 
+export const {
+  createOrUpdate: postOrEditJobActionCreator,
+  remove: removeJobActionCreator,
+} = jobSlice.actions
+
 // combining reducers
 const reducer = combineReducers({
   user: userSlice.reducer,
+  job: jobSlice.reducer,
 })
 
 // middleware
