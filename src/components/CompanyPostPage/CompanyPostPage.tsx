@@ -44,7 +44,7 @@ const CompanyPostPage: React.FC<RouteComponentProps<TParams>> = ({
     if (user) {
       const added = await jobService.add(user, { ...form, userId: user.id })
       if (added.status) {
-        alert('Successfully added!')
+        alert('Successfully added')
         dispatch(
           postOrEditJobActionCreator({
             ...form,
@@ -83,7 +83,7 @@ const CompanyPostPage: React.FC<RouteComponentProps<TParams>> = ({
     <div className={styles.container}>
       <div className={styles.container_sub}>
         <Header />
-        <div className={styles.title}>Company Post Page</div>
+        <div className={styles.title}>Post Your Job</div>
         <form ref={formRef} className={styles.form} onSubmit={onSubmit}>
           <input
             className={styles.input}

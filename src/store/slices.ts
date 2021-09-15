@@ -28,6 +28,14 @@ const jobSlice = createSlice({
   },
 })
 
+const jobAllSlice = createSlice({
+  name: 'jobAll',
+  initialState: null as Job[] | null,
+  reducers: {
+    saveAllJobs: (state, { payload }: PayloadAction<Job[]>) => payload,
+  },
+})
+
 // actions
 export const {
   addOrUpdate: createOrUpdateUserActionCreator,
@@ -39,10 +47,13 @@ export const {
   remove: removeJobActionCreator,
 } = jobSlice.actions
 
+export const { saveAllJobs: saveAllJobsActionCreator } = jobAllSlice.actions
+
 // combining reducers
 const reducer = combineReducers({
   user: userSlice.reducer,
   job: jobSlice.reducer,
+  jobAll: jobAllSlice.reducer,
 })
 
 // middleware

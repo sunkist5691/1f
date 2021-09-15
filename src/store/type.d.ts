@@ -19,4 +19,5 @@ export interface Job {
 export interface State {
   user: User | null
   job: Job | null
+  jobAll: Job[] | []
 }

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 const useWindowSize = () => {
   const [size, setSize] = useState(window.innerWidth)
   const isMobile = () => {
-    if (size <= 600) return true
+    if (size <= 1330) return true
     return false
   }
   useEffect(() => {

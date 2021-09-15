@@ -56,6 +56,11 @@ const Login: React.FC = () => {
 
     if (formRef.current) formRef.current.reset()
   }
+
+  const errorAlert = () => {
+    alert('Incorrect Email and Password')
+    setErrors('')
+  }
   return (
     <div className={styles.login}>
       <div className={styles.login_sub}>
@@ -76,7 +81,7 @@ const Login: React.FC = () => {
               placeholder="Password"
             />
             <button className={styles.button}>Login</button>
-            {errors && <p className={styles.error}>{errors}</p>}
+            {errors && errorAlert()}
             <span className={styles.signup_link}>
               Don't have an account? Signup <Link to="/signup">here</Link>
             </span>

@@ -40,24 +40,9 @@ const CompanyEditPage: React.FC<RouteComponentProps<TParams>> = ({
     description: '',
     userId: '',
   })
-
   useEffect(() => {
-    jobService
-      .get(user)
-      .then((res) => {
-        console.log(res)
-        dispatch(postOrEditJobActionCreator(res))
-        if (typeRef && typeRef.current) typeRef.current.value = res.job_type
-        if (expRef && expRef.current) {
-          expRef.current.value = res.experience_level
-        }
-        setForm(res)
-      })
-      .catch((err) => {
-        alert('Please post a job first before you edit')
-        history.push('/company/post')
-      })
-  }, [jobService, dispatch, user, history])
+    if (job) setForm(job)
+  }, [user, job, history])
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -71,6 +56,9 @@ const CompanyEditPage: React.FC<RouteComponentProps<TParams>> = ({
         )
         if (formRef && formRef.current) formRef.current.reset()
       }
+    } else {
+      alert('Please post job first before edit')
+      history.push('/company/post')
     }
     if (window.confirm('Successfully Edited!, Click ok move to home page')) {
       history.push('/home')
@@ -94,9 +82,9 @@ const CompanyEditPage: React.FC<RouteComponentProps<TParams>> = ({
 
   const onDelete = (e: React.FormEvent) => {
     e.preventDefault()
-    if (window.confirm('Are you sure you want to delete?')) {
+    if (job && window.confirm('Are you sure you want to delete?')) {
       jobService
-        .remove(user, form)
+        .remove(user, job)
         .then((res) => {
           console.log('HELLO WOLRD: ', res)
           dispatch(removeJobActionCreator())
@@ -110,6 +98,8 @@ const CompanyEditPage: React.FC<RouteComponentProps<TParams>> = ({
             userId: '',
           })
           if (formRef && formRef.current) formRef.current.reset()
+          alert('Successfully deleted')
+          history.push('/home')
         })
         .catch((err) => console.log('Failed to delete job: ', err))
     }
@@ -119,7 +109,7 @@ const CompanyEditPage: React.FC<RouteComponentProps<TParams>> = ({
     <div className={styles.container}>
       <div className={styles.container_sub}>
         <Header />
-        <div className={styles.title}>Company Edit Page</div>
+        <div className={styles.title}>Edit Your Job</div>
         <form ref={formRef} className={styles.form}>
           <input
             className={styles.input}

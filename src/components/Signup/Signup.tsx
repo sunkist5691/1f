@@ -147,8 +147,8 @@ const Signup: React.FC = () => {
               <option hidden defaultValue="">
                 Choose your status
               </option>
-              <option value="employer">Looking for Candidate</option>
-              <option value="candidate">Looking for Company</option>
+              <option value="employer">Post a job</option>
+              <option value="candidate">Search for job</option>
             </select>
             {errors.role && <p className={styles.error}>{errors.role}</p>}
             <button className={styles.button}>Register</button>

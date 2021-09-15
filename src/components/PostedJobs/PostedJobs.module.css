@@ -1,0 +1,9 @@
+.container_sub {
+  display: flex;
+  height: 100vh;
+  min-height: 400px;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  margin: 20px 0;
+}

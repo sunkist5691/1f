@@ -40,13 +40,22 @@ const NavLinks: React.FC<Props> = ({ isMobile, closeMobileMenu }) => {
         </Link>
       )}
       {user && user.token && user.role === 'candidate' && (
-        <Link
-          className={styles.nav_button}
-          to={`/profile/${user.id}`}
-          onClick={() => isMobile && closeMobileMenu()}
-        >
-          Profile
-        </Link>
+        <>
+          <Link
+            className={styles.nav_button}
+            to={`/profile/${user.id}`}
+            onClick={() => isMobile && closeMobileMenu()}
+          >
+            Profile
+          </Link>
+          <Link
+            className={styles.nav_button}
+            to={`/saved-list`}
+            onClick={() => isMobile && closeMobileMenu()}
+          >
+            Saved List
+          </Link>
+        </>
       )}
       {user && user.token ? (
         <Link
@@ -68,9 +77,7 @@ const NavLinks: React.FC<Props> = ({ isMobile, closeMobileMenu }) => {
           Login
         </Link>
       )}
-      {user && user.token ? (
-        <button className={styles.nav_button}>Saved List</button>
-      ) : (
+      {!user && (
         <Link
           className={styles.nav_button}
           to="/signup"
