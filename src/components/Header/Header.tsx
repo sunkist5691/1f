@@ -15,7 +15,7 @@ import { State } from '../../store/type'
 const Header: React.FC = () => {
   const searchWord = useSelector((state: State) => state.search)
   const [isMobile, width] = useWindowSize()
-  const { visible, ref } = useOutsideAlert(false)
+  const { close, ref } = useOutsideAlert(false)
   const [open, setOpen] = useState<boolean>(false)
   const [search, setSearch] = useState<string>(searchWord)
   const [searchOn, setSearchOn] = useState<boolean>(false)
@@ -119,11 +119,11 @@ const Header: React.FC = () => {
 
       {width <= 1330 ? (
         <div className={styles.nav_mobile}>
-          <div className={styles.nav_mobile_icon}>
-            {open ? hamburgerOpen : hamburgerClose}
+          <div className={styles.nav_mobile_icon} ref={ref}>
+            {open && !close ? hamburgerOpen : hamburgerClose}
           </div>
-          {open && visible && (
-            <div ref={ref}>
+          {open && !close && (
+            <div>
               <NavLinks isMobile={isMobile} closeMobileMenu={closeMobileMenu} />
             </div>
           )}

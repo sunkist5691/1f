@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 
 const PostedJobs = () => {
   const { search, jobAll } = useSelector((state: State) => state)
-  console.log('***********: ', search, jobAll)
+
   const filteredJobs =
     jobAll &&
     jobAll.filter((eachJob) => {
