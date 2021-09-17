@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from './Header.module.css'
@@ -52,7 +52,6 @@ const Header: React.FC = () => {
     }
   }
 
-  useEffect(() => {})
   return (
     <div className={styles.header}>
       <div className={styles.logo} onClick={() => history.push('/home')}>
