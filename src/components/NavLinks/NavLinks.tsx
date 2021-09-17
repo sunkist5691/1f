@@ -56,14 +56,14 @@ const NavLinks: React.FC<Props> = ({ isMobile, closeMobileMenu }) => {
         <>
           <Link
             className={styles.nav_button}
-            to={`/profile/${user.id}`}
+            to={`/profile/menu`}
             onClick={onMobile}
           >
             Profile
           </Link>
           <Link
             className={styles.nav_button}
-            to={`/saved-list`}
+            to={`/applied`}
             onClick={onMobile}
           >
             Applied

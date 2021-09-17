@@ -1,35 +1,35 @@
 import React, { useState, useRef } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { postOrEditJobActionCreator } from '../../store/slices'
+import { postOrEditProfileActionCreator } from '../../store/slices'
 import { State } from '../../store/type'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
-import JobService from '../../service/job-service'
-import styles from './CompanyPostPage.module.css'
+import ProfileService from '../../service/profile-service'
+import styles from './ProfilePostPage.module.css'
 
 type Form = {
-  userId: string
-  company: string
+  candidateId: string
+  name: string
   city: string
-  job_title: string
-  job_type: string
+  hobbies: string
+  highest_degree: string
   experience_level: string
   description: string
 }
 
-const CompanyPostPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
+const ProfilePostPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
   const formRef = useRef<HTMLFormElement | null>(null)
-  const jobService = new JobService()
+  const profileService = new ProfileService()
   const dispatch = useDispatch()
   const user = useSelector((state: State) => state.user)
 
   const [form, setForm] = useState<Form>({
-    userId: user ? user.id : '',
-    company: '',
+    candidateId: user ? user.id : '',
+    name: '',
     city: '',
-    job_type: '',
-    job_title: '',
+    highest_degree: '',
+    hobbies: '',
     experience_level: '',
     description: '',
   })
@@ -37,33 +37,31 @@ const CompanyPostPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (user) {
-      const added = await jobService.add(user, {
+      const added = await profileService.add(user, {
         ...form,
-        userId: user.id,
-        applicants: [],
+        candidateId: user.id,
       })
       if (added.status) {
         alert('Successfully added')
         dispatch(
-          postOrEditJobActionCreator({
+          postOrEditProfileActionCreator({
             ...form,
-            userId: user.id,
-            applicants: [],
+            candidateId: user.id,
           }),
         )
         setForm({
           ...form,
-          company: '',
+          name: '',
           city: '',
-          job_title: '',
-          job_type: '',
+          hobbies: '',
+          highest_degree: '',
           experience_level: '',
           description: '',
         })
         if (formRef && formRef.current) {
           formRef.current.reset()
         }
-      } else alert("You've already post a job")
+      } else alert("You've already created and posted a profile")
       history.push('/')
     }
   }
@@ -87,11 +85,11 @@ const CompanyPostPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
         <form ref={formRef} className={styles.form} onSubmit={onSubmit}>
           <input
             className={styles.input}
-            name="company"
+            name="name"
             type="text"
-            placeholder="Company name"
+            placeholder="name"
             onChange={onChange}
-            value={form.company}
+            value={form.name}
           />
           <input
             className={styles.input}
@@ -103,24 +101,26 @@ const CompanyPostPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
           />
           <input
             className={styles.input}
-            name="job_title"
+            name="hobbies"
             type="text"
-            placeholder="Job Title"
+            placeholder="Hobbies"
             onChange={onChange}
-            value={form.job_title}
+            value={form.hobbies}
           />
 
           <select
             className={styles.select}
-            name="job_type"
-            placeholder="Job Type"
+            name="highest_degree"
+            placeholder="Highest Degree"
             onChange={onChange}
           >
-            <option defaultValue="">Choose type of job</option>
-            <option value="full time">Full-Time</option>
-            <option value="part time">Part-Time</option>
-            <option value="contract">Contract</option>
-            <option value="internship">Internship</option>
+            <option defaultValue="">Choose your highest degree</option>
+            <option value="High School Diploma">High School</option>
+            <option value="Bootcamp">Bootcamp</option>
+            <option value="Associate Degree">Associate Degree</option>
+            <option value="Bachelor Degree">Bachelor Degree</option>
+            <option value="Master Degree">Master Degree</option>
+            <option value="Doctoral Degree">Doctoral Degree</option>
           </select>
 
           <select
@@ -141,7 +141,7 @@ const CompanyPostPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
           <textarea
             name="description"
             className={styles.textarea}
-            placeholder="Please add job description"
+            placeholder="Please add more description if you want"
             onChange={onChange}
             value={form.description}
           ></textarea>
@@ -157,4 +157,4 @@ const CompanyPostPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
   )
 }
 
-export default CompanyPostPage
+export default ProfilePostPage

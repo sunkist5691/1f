@@ -23,7 +23,6 @@ const Login: React.FC = () => {
   const userService = new UserService()
 
   useEffect(() => {
-    // 만약 유저가 로그인이 되어있다면, homepage 로 redirecting 을 해라
     if (user && user.token) history.push('/home')
   }, [history, user])
 

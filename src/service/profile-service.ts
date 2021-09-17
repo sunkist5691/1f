@@ -1,28 +1,27 @@
 type Form = {
-  company: string
+  candidateId: string
+  name: string
   city: string
-  job_type: string
-  job_title: string
+  hobbies: string
+  highest_degree: string
   experience_level: string
   description: string
-  userId: string
-  applicants: []
 }
-export default class JobService {
+export default class ProfileService {
   async getAll() {
-    const jobs = await fetch(`${process.env.REACT_APP_BASE_URL}/jobs`, {
+    const profiles = await fetch(`${process.env.REACT_APP_BASE_URL}/profiles`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     })
 
-    return await jobs.json()
+    return await profiles.json()
   }
 
   async get(user: any) {
-    const job = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/jobs/${user.id}`,
+    const profile = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/profiles/${user.id}`,
       {
         method: 'GET',
         headers: {
@@ -31,11 +30,11 @@ export default class JobService {
         },
       },
     )
-    return await job.json()
+    return await profile.json()
   }
 
   async add(user: any, form: Form) {
-    const job = await fetch(`${process.env.REACT_APP_BASE_URL}/jobs`, {
+    const profile = await fetch(`${process.env.REACT_APP_BASE_URL}/profiles`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -44,11 +43,11 @@ export default class JobService {
       body: JSON.stringify({ ...form }),
     })
 
-    return await job.json()
+    return await profile.json()
   }
 
   async edit(user: any, form: Form) {
-    const job = await fetch(`${process.env.REACT_APP_BASE_URL}/jobs`, {
+    const profile = await fetch(`${process.env.REACT_APP_BASE_URL}/profiles`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -57,12 +56,12 @@ export default class JobService {
       body: JSON.stringify({ ...form }),
     })
 
-    return await job.json()
+    return await profile.json()
   }
 
   async remove(user: any, form: Form) {
-    const job = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/jobs/${form.userId}`,
+    const profile = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/profiles/${form.candidateId}`,
       {
         method: 'DELETE',
         headers: {
@@ -72,6 +71,6 @@ export default class JobService {
       },
     )
 
-    return await job.json()
+    return await profile.json()
   }
 }

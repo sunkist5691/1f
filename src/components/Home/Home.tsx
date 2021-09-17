@@ -4,7 +4,7 @@ import Footer from '../Footer/Footer'
 import PostedJobs from '../PostedJobs/PostedJobs'
 import styles from './Home.module.css'
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
     <div className={styles.container}>
       <Header />

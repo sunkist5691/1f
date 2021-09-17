@@ -2,63 +2,61 @@ import React, { useEffect, useState, useRef, useMemo } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { State } from '../../store/type'
-import JobService from '../../service/job-service'
+import ProfileService from '../../service/profile-service'
 import {
-  postOrEditJobActionCreator,
-  removeJobActionCreator,
+  postOrEditProfileActionCreator,
+  removeProfileActionCreator,
 } from '../../store/slices'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
-import styles from './CompanyEditPage.module.css'
+import styles from './ProfileEditPage.module.css'
 
 type Form = {
-  company: string
+  candidateId: string
+  name: string
   city: string
-  job_type: string
-  job_title: string
+  hobbies: string
+  highest_degree: string
   experience_level: string
   description: string
-  userId: string
 }
 
-const CompanyEditPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
+const ProfileEditPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
   const formRef = useRef<HTMLFormElement>(null)
   const typeRef = useRef<HTMLSelectElement>(null)
   const expRef = useRef<HTMLSelectElement>(null)
-  const { job, user } = useSelector((state: State) => state)
+  const { profile, user } = useSelector((state: State) => state)
   const dispatch = useDispatch()
-  const jobService = useMemo(() => new JobService(), [])
+  const profileService = useMemo(() => new ProfileService(), [])
   const [form, setForm] = useState<Form>({
-    company: '',
+    name: '',
     city: '',
-    job_type: '',
-    job_title: '',
+    hobbies: '',
+    highest_degree: '',
     experience_level: '',
     description: '',
-    userId: '',
+    candidateId: '',
   })
   useEffect(() => {
-    if (job) {
+    if (profile) {
       if (typeRef && typeRef.current && expRef && expRef.current) {
-        typeRef.current.value = job.job_type
-        expRef.current.value = job.experience_level
+        typeRef.current.value = profile.highest_degree
+        expRef.current.value = profile.experience_level
       }
-      setForm(job)
+      setForm(profile)
     }
-  }, [user, job, history])
+  }, [user, profile, history])
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (user && job) {
-      const edited = await jobService.edit(user, {
+    if (user && profile) {
+      const edited = await profileService.edit(user, {
         ...form,
-        applicants: job.applicants,
       })
-      if (edited.status && edited.editedJob) {
+      if (edited.status && edited.editedProfile) {
         dispatch(
-          postOrEditJobActionCreator({
+          postOrEditProfileActionCreator({
             ...form,
-            applicants: job.applicants,
           }),
         )
         if (formRef && formRef.current) formRef.current.reset()
@@ -69,11 +67,11 @@ const CompanyEditPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
         }
       }
     } else {
-      alert('Please post job first before edit')
-      history.push('/company/post')
+      alert('Please post profile first before edit')
+      history.push('/profile/post')
     }
 
-    if (typeRef && typeRef.current) typeRef.current.value = form.job_type
+    if (typeRef && typeRef.current) typeRef.current.value = form.highest_degree
     if (expRef && expRef.current) {
       expRef.current.value = form.experience_level
     }
@@ -92,26 +90,26 @@ const CompanyEditPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
 
   const onDelete = (e: React.FormEvent) => {
     e.preventDefault()
-    if (job && window.confirm('Are you sure you want to delete?')) {
-      jobService
-        .remove(user, job)
+    if (profile && window.confirm('Are you sure you want to delete?')) {
+      profileService
+        .remove(user, profile)
         .then((res) => {
           console.log('HELLO WOLRD: ', res)
-          dispatch(removeJobActionCreator())
+          dispatch(removeProfileActionCreator())
           setForm({
-            company: '',
+            name: '',
             city: '',
-            job_type: '',
-            job_title: '',
+            highest_degree: '',
+            hobbies: '',
             experience_level: '',
             description: '',
-            userId: '',
+            candidateId: '',
           })
           if (formRef && formRef.current) formRef.current.reset()
           alert('Successfully deleted')
           history.push('/home')
         })
-        .catch((err) => console.log('Failed to delete job: ', err))
+        .catch((err) => console.log('Failed to delete profile: ', err))
     } else alert('Nothing to delete')
   }
 
@@ -119,15 +117,15 @@ const CompanyEditPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
     <div className={styles.container}>
       <div className={styles.container_sub}>
         <Header />
-        <div className={styles.title}>Edit Your Job</div>
+        <div className={styles.title}>Edit Your Profile</div>
         <form ref={formRef} className={styles.form}>
           <input
             className={styles.input}
-            name="company"
+            name="name"
             type="text"
-            placeholder="Company name"
+            placeholder="Name"
             onChange={onChange}
-            value={form.company}
+            value={form.name}
           />
           <input
             className={styles.input}
@@ -139,27 +137,27 @@ const CompanyEditPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
           />
           <input
             className={styles.input}
-            name="job_title"
+            name="hobbies"
             type="text"
-            placeholder="Job Title"
+            placeholder="Hobbies"
             onChange={onChange}
-            value={form.job_title}
+            value={form.hobbies}
           />
 
           <select
             ref={typeRef}
             className={styles.select}
-            name="job_type"
-            placeholder="Job Type"
+            name="highest_degree"
+            placeholder="Highest Degree"
             onChange={onChange}
           >
-            <option hidden defaultValue="">
-              Choose type of job
-            </option>
-            <option value="full_time">Full-Time</option>
-            <option value="part_time">Part-Time</option>
-            <option value="contract">Contract</option>
-            <option value="internship">Internship</option>
+            <option defaultValue="">Choose your highest degree</option>
+            <option value="High School Diploma">High School</option>
+            <option value="Bootcamp">Bootcamp</option>
+            <option value="Associate Degree">Associate Degree</option>
+            <option value="Bachelor Degree">Bachelor Degree</option>
+            <option value="Master Degree">Master Degree</option>
+            <option value="Doctoral Degree">Doctoral Degree</option>
           </select>
 
           <select
@@ -183,7 +181,7 @@ const CompanyEditPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
           <textarea
             name="description"
             className={styles.textarea}
-            placeholder="Please add job description"
+            placeholder="Please add profile description"
             onChange={onChange}
             value={form.description}
           ></textarea>
@@ -208,4 +206,4 @@ const CompanyEditPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
   )
 }
 
-export default CompanyEditPage
+export default ProfileEditPage

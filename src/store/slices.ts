@@ -1,13 +1,11 @@
 import logger from 'redux-logger'
-import { User, Job } from './type'
+import { User, Job, Profile } from './type'
 import {
   combineReducers,
   configureStore,
   createSlice,
   PayloadAction,
 } from '@reduxjs/toolkit'
-
-// initialStates
 
 // slices
 const userSlice = createSlice({
@@ -18,13 +16,28 @@ const userSlice = createSlice({
     logout: (state, { payload }: PayloadAction<null>) => payload,
   },
 })
-
 const jobSlice = createSlice({
   name: 'job',
   initialState: null as Job | null,
   reducers: {
-    createOrUpdate: (state, { payload }: PayloadAction<Job>) => payload,
+    createOrUpdate: (state, { payload }: PayloadAction<Job | null>) => payload,
     remove: (state) => null,
+  },
+  extraReducers: {
+    [userSlice.actions.logout.type]: (state) => null,
+  },
+})
+
+const profileSlice = createSlice({
+  name: 'profile',
+  initialState: null as Profile | null,
+  reducers: {
+    createOrUpdate: (state, { payload }: PayloadAction<Profile | null>) =>
+      payload,
+    remove: (state) => null,
+  },
+  extraReducers: {
+    [userSlice.actions.logout.type]: (state) => null,
   },
 })
 
@@ -42,6 +55,9 @@ const searchSlice = createSlice({
   reducers: {
     searchWord: (state, { payload }: PayloadAction<string>) => payload,
   },
+  extraReducers: {
+    [userSlice.actions.logout.type]: (state) => '',
+  },
 })
 
 // actions
@@ -49,6 +65,11 @@ export const {
   addOrUpdate: createOrUpdateUserActionCreator,
   logout: logoutActionCreator,
 } = userSlice.actions
+
+export const {
+  createOrUpdate: postOrEditProfileActionCreator,
+  remove: removeProfileActionCreator,
+} = profileSlice.actions
 
 export const {
   createOrUpdate: postOrEditJobActionCreator,
@@ -62,6 +83,7 @@ export const { searchWord: searchWordActionCreator } = searchSlice.actions
 const reducer = combineReducers({
   user: userSlice.reducer,
   job: jobSlice.reducer,
+  profile: profileSlice.reducer,
   jobAll: jobAllSlice.reducer,
   search: searchSlice.reducer,
 })

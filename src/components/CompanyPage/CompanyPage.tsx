@@ -5,9 +5,7 @@ import Footer from '../Footer/Footer'
 import CompanyMenuPage from '../CompanyMenuPage/CompanyMenuPage'
 import styles from './CompanyPage.module.css'
 
-type TParams = { id: string }
-
-const CompanyPage: React.FC<RouteComponentProps<TParams>> = ({ match }) => {
+const CompanyPage: React.FC<RouteComponentProps<any>> = () => {
   return (
     <div className={styles.container}>
       <Header />
