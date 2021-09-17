@@ -64,16 +64,14 @@ const App: React.FC<Props> = ({ authService, userService, jobService }) => {
   }, [user, dispatch, jobService])
 
   useEffect(() => {
-    if (user && user.role === 'employer') {
-      jobService
-        .getAll()
-        .then((res) => {
-          dispatch(saveAllJobsActionCreator(res))
-        })
-        .catch((err) => {
-          console.log('App.tsx / None of the job posting available: ', err)
-        })
-    }
+    jobService
+      .getAll()
+      .then((res) => {
+        dispatch(saveAllJobsActionCreator(res))
+      })
+      .catch((err) => {
+        console.log('App.tsx / None of the job posting available: ', err)
+      })
   }, [dispatch, jobService, user])
 
   return (

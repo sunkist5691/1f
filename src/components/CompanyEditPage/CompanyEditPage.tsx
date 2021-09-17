@@ -41,7 +41,13 @@ const CompanyEditPage: React.FC<RouteComponentProps<TParams>> = ({
     userId: '',
   })
   useEffect(() => {
-    if (job) setForm(job)
+    if (job) {
+      if (typeRef && typeRef.current && expRef && expRef.current) {
+        typeRef.current.value = job.job_type
+        expRef.current.value = job.experience_level
+      }
+      setForm(job)
+    }
   }, [user, job, history])
 
   const onSubmit = async (e: React.FormEvent) => {

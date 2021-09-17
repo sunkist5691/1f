@@ -36,6 +36,14 @@ const jobAllSlice = createSlice({
   },
 })
 
+const searchSlice = createSlice({
+  name: 'search',
+  initialState: '',
+  reducers: {
+    searchWord: (state, { payload }: PayloadAction<string>) => payload,
+  },
+})
+
 // actions
 export const {
   addOrUpdate: createOrUpdateUserActionCreator,
@@ -48,12 +56,14 @@ export const {
 } = jobSlice.actions
 
 export const { saveAllJobs: saveAllJobsActionCreator } = jobAllSlice.actions
+export const { searchWord: searchWordActionCreator } = searchSlice.actions
 
 // combining reducers
 const reducer = combineReducers({
   user: userSlice.reducer,
   job: jobSlice.reducer,
   jobAll: jobAllSlice.reducer,
+  search: searchSlice.reducer,
 })
 
 // middleware

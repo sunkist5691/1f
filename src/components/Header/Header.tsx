@@ -1,19 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import styles from './Header.module.css'
 import { ImMenu3, ImMenu4 } from 'react-icons/im'
 import { FaRegHandshake } from 'react-icons/fa'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { IoMdArrowRoundBack } from 'react-icons/io'
+import { searchWordActionCreator } from '../../store/slices'
 import useWindowSize from '../../hooks/useWindowSize'
+import useOutsideAlert from '../../hooks/useOutsideAlert'
 import NavLinks from '../NavLinks/NavLinks'
+import { State } from '../../store/type'
 
 const Header: React.FC = () => {
+  const searchWord = useSelector((state: State) => state.search)
   const [isMobile, width] = useWindowSize()
+  const { visible, ref } = useOutsideAlert(false)
   const [open, setOpen] = useState<boolean>(false)
-  const [search, setSearch] = useState<string>('')
+  const [search, setSearch] = useState<string>(searchWord)
   const [searchOn, setSearchOn] = useState<boolean>(false)
+  const searchRef = useRef<HTMLInputElement | null>(null)
   const history = useHistory()
+  const dispatch = useDispatch()
+
   const hamburgerOpen = (
     <ImMenu4
       className={styles.hamburger}
@@ -30,10 +39,20 @@ const Header: React.FC = () => {
   )
 
   const closeMobileMenu = () => setOpen(false)
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value)
   }
 
+  const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      searchRef.current && searchRef.current.select()
+      dispatch(searchWordActionCreator(search))
+      history.push('/home')
+    }
+  }
+
+  useEffect(() => {})
   return (
     <div className={styles.header}>
       <div className={styles.logo} onClick={() => history.push('/home')}>
@@ -51,14 +70,16 @@ const Header: React.FC = () => {
                 <IoMdArrowRoundBack size="3rem" />
               </div>
               <div className={styles.search}>
-                <AiOutlineSearch size="2.2rem" color="grey" />
                 <input
+                  ref={searchRef}
                   className={styles.searchBar}
                   type="text"
                   onChange={onChange}
+                  onKeyPress={onKeyPress}
                   value={search}
                   placeholder="Search Company"
                 />
+                <AiOutlineSearch size="2.2rem" color="grey" />
               </div>
             </>
           ) : (
@@ -83,14 +104,16 @@ const Header: React.FC = () => {
         </>
       ) : (
         <div className={styles.search}>
-          <AiOutlineSearch size="2.2rem" color="grey" />
           <input
+            ref={searchRef}
             className={styles.searchBar}
             type="text"
             onChange={onChange}
+            onKeyPress={onKeyPress}
             value={search}
             placeholder="Search Company"
           />
+          <AiOutlineSearch size="2.2rem" color="grey" />
         </div>
       )}
 
@@ -99,8 +122,10 @@ const Header: React.FC = () => {
           <div className={styles.nav_mobile_icon}>
             {open ? hamburgerOpen : hamburgerClose}
           </div>
-          {open && (
-            <NavLinks isMobile={isMobile} closeMobileMenu={closeMobileMenu} />
+          {open && visible && (
+            <div ref={ref}>
+              <NavLinks isMobile={isMobile} closeMobileMenu={closeMobileMenu} />
+            </div>
           )}
         </div>
       ) : (

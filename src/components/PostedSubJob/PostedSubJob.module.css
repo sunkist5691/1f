@@ -1,8 +1,36 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 28%;
-  min-width: 300px;
+  min-width: 400px;
   font-size: 1.6rem;
-  padding: 30px;
-  border: 2px solid grey;
+  border: 1px solid grey;
   border-radius: 3px;
+}
+
+.container_sub {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 20px 0 20px 20px;
+  flex: 1;
+}
+
+.button_group {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+.button {
+  padding: 5px 15px;
+  font-size: 1.6rem;
+  background-color: transparent;
+
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+.button:hover {
+  background-color: blanchedalmond;
 }
