@@ -40,6 +40,8 @@ const ProfilePostPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
       const added = await profileService.add(user, {
         ...form,
         candidateId: user.id,
+        applied: [],
+        email: user.email,
       })
       if (added.status) {
         alert('Successfully added')
@@ -47,6 +49,8 @@ const ProfilePostPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
           postOrEditProfileActionCreator({
             ...form,
             candidateId: user.id,
+            applied: [],
+            email: user.email,
           }),
         )
         setForm({
@@ -81,7 +85,7 @@ const ProfilePostPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
     <div className={styles.container}>
       <div className={styles.container_sub}>
         <Header />
-        <div className={styles.title}>Post Your Job</div>
+        <div className={styles.title}>Post Your Profile</div>
         <form ref={formRef} className={styles.form} onSubmit={onSubmit}>
           <input
             className={styles.input}

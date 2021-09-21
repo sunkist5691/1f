@@ -6,7 +6,7 @@ import { BiCommentError } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 
 const PostedJobs = () => {
-  const { search, jobAll } = useSelector((state: State) => state)
+  const { search, jobAll, profile, job } = useSelector((state: State) => state)
 
   const filteredJobs =
     jobAll &&
@@ -21,9 +21,24 @@ const PostedJobs = () => {
   return (
     <div className={styles.container}>
       <div className={styles.container_sub}>
-        {jobAll && filteredJobs.length ? (
+        {jobAll && filteredJobs.length && profile ? (
           filteredJobs.map((eachJob) => (
-            <PostedSubJob key={eachJob.userId} eachJob={eachJob} />
+            <PostedSubJob
+              key={eachJob.userId}
+              eachJob={eachJob}
+              disabled={eachJob.applicants.some(
+                (eachProfile) =>
+                  eachProfile.candidateId === profile.candidateId,
+              )}
+            />
+          ))
+        ) : jobAll && filteredJobs.length && job ? (
+          filteredJobs.map((eachJob) => (
+            <PostedSubJob
+              key={eachJob.userId}
+              eachJob={eachJob}
+              disabled={false}
+            />
           ))
         ) : (
           <div className={styles.no_data_container}>

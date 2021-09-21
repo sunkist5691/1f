@@ -7,10 +7,10 @@ const ProfileMenuPage: React.FC = () => {
     <div className={styles.container}>
       <div className={styles.container_sub}>
         <Link className={`${styles.post} ${styles.box}`} to="/profile/post">
-          Post Profile
+          Post Your Profile
         </Link>
         <Link className={`${styles.edit} ${styles.box}`} to="/profile/edit">
-          Edit Profile
+          Edit Your Profile
         </Link>
       </div>
     </div>

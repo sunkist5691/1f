@@ -117,8 +117,8 @@ const CompanyPostPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
             onChange={onChange}
           >
             <option defaultValue="">Choose type of job</option>
-            <option value="full time">Full-Time</option>
-            <option value="part time">Part-Time</option>
+            <option value="full_time">Full-Time</option>
+            <option value="part_time">Part-Time</option>
             <option value="contract">Contract</option>
             <option value="internship">Internship</option>
           </select>

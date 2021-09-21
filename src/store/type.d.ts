@@ -7,24 +7,26 @@ export interface User {
 }
 
 export interface Job {
+  userId: string
   company: string
   city: string
   job_type: string
   job_title: string
   experience_level: string
   description: string
-  userId: string
-  applicants: []
+  applicants: Profile[]
 }
 
 export interface Profile {
   candidateId: string
+  email: string
   name: string
   city: string
   hobbies: string
   highest_degree: string
   experience_level: string
   description: string
+  applied: Job[]
 }
 
 export interface State {

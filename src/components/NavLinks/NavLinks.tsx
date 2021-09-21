@@ -29,6 +29,7 @@ const NavLinks: React.FC<Props> = ({ isMobile, closeMobileMenu }) => {
     dispatch(searchWordActionCreator(''))
   }
 
+  console.log('NavLink, RENDERING')
   return (
     <div className={styles.nav}>
       <Link className={styles.nav_button} to="/home" onClick={onMobile}>
@@ -46,7 +47,7 @@ const NavLinks: React.FC<Props> = ({ isMobile, closeMobileMenu }) => {
       {user && user.token && user.role === 'employer' && (
         <Link
           className={styles.nav_button}
-          to={`/company/application`}
+          to={`/company/applicants`}
           onClick={onMobile}
         >
           Applicants
@@ -63,7 +64,7 @@ const NavLinks: React.FC<Props> = ({ isMobile, closeMobileMenu }) => {
           </Link>
           <Link
             className={styles.nav_button}
-            to={`/applied`}
+            to={`/profile/applied`}
             onClick={onMobile}
           >
             Applied

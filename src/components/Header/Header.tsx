@@ -117,14 +117,12 @@ const Header: React.FC = () => {
       )}
 
       {width <= 1330 ? (
-        <div className={styles.nav_mobile}>
-          <div className={styles.nav_mobile_icon} ref={ref}>
+        <div className={styles.nav_mobile} ref={ref}>
+          <div className={styles.nav_mobile_icon}>
             {open && !close ? hamburgerOpen : hamburgerClose}
           </div>
           {open && !close && (
-            <div>
-              <NavLinks isMobile={isMobile} closeMobileMenu={closeMobileMenu} />
-            </div>
+            <NavLinks isMobile={isMobile} closeMobileMenu={closeMobileMenu} />
           )}
         </div>
       ) : (

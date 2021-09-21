@@ -1,3 +1,5 @@
+import { Job } from '../store/type'
+
 type Form = {
   candidateId: string
   name: string
@@ -6,6 +8,8 @@ type Form = {
   highest_degree: string
   experience_level: string
   description: string
+  applied: Job[]
+  email: string
 }
 export default class ProfileService {
   async getAll() {
@@ -44,6 +48,21 @@ export default class ProfileService {
     })
 
     return await profile.json()
+  }
+
+  async addApplied(user: any, job: Job) {
+    const added = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/profiles/${user.id}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          token: user.token,
+        },
+        body: JSON.stringify({ ...job }),
+      },
+    )
+    return await added.json()
   }
 
   async edit(user: any, form: Form) {

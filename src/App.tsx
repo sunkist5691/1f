@@ -12,18 +12,20 @@ import CandidateRoute from './routes/CandidateRoute'
 import CompanyPage from './components/CompanyPage/CompanyPage'
 import CompanyPostPage from './components/CompanyPostPage/CompanyPostPage'
 import CompanyEditPage from './components/CompanyEditPage/CompanyEditPage'
+import CompanyApplicantsPage from './components/CompanyApplicantsPage/CompanyApplicantsPage'
 import ProfilePage from './components/ProfilePage/ProfilePage'
 import ProfileEditPage from './components/ProfileEditPage/ProfileEditPage'
 import ProfilePostPage from './components/ProfilePostPage/ProfilePostPage'
+import ProfileApplied from './components/ProfileApplied/ProfileApplied'
 import Home from './components/Home/Home'
 import Login from './components/Login/Login'
 import Signup from './components/Signup/Signup'
 import AuthService from './service/auth-service'
 import UserService from './service/user-service'
 import JobService from './service/job-service'
+import ProfileService from './service/profile-service'
 import styles from './App.module.css'
 import { State } from './store/type'
-import ProfileService from './service/profile-service'
 
 interface Props {
   authService: AuthService
@@ -102,6 +104,11 @@ const App: React.FC<Props> = ({
         <EmployerRoute path="/company/post" component={CompanyPostPage} />
         <EmployerRoute path="/company/edit" component={CompanyEditPage} />
         <EmployerRoute path="/company/menu" component={CompanyPage} />
+        <EmployerRoute
+          path="/company/applicants"
+          component={CompanyApplicantsPage}
+        />
+        <CandidateRoute path="/profile/applied" component={ProfileApplied} />
         <CandidateRoute path="/profile/post" component={ProfilePostPage} />
         <CandidateRoute path="/profile/edit" component={ProfileEditPage} />
         <CandidateRoute path="/profile/menu" component={ProfilePage} />

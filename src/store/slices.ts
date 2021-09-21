@@ -21,6 +21,9 @@ const jobSlice = createSlice({
   initialState: null as Job | null,
   reducers: {
     createOrUpdate: (state, { payload }: PayloadAction<Job | null>) => payload,
+    addApplicant: (state, { payload }: PayloadAction<Profile>) => {
+      if (state) state.applicants.push(payload)
+    },
     remove: (state) => null,
   },
   extraReducers: {
@@ -34,6 +37,9 @@ const profileSlice = createSlice({
   reducers: {
     createOrUpdate: (state, { payload }: PayloadAction<Profile | null>) =>
       payload,
+    addApplied: (state, { payload }: PayloadAction<Job>) => {
+      if (state) state.applied.push(payload)
+    },
     remove: (state) => null,
   },
   extraReducers: {
@@ -69,11 +75,13 @@ export const {
 export const {
   createOrUpdate: postOrEditProfileActionCreator,
   remove: removeProfileActionCreator,
+  addApplied: addAppliedActionCreator,
 } = profileSlice.actions
 
 export const {
   createOrUpdate: postOrEditJobActionCreator,
   remove: removeJobActionCreator,
+  addApplicant: addApplicantActionCreator,
 } = jobSlice.actions
 
 export const { saveAllJobs: saveAllJobsActionCreator } = jobAllSlice.actions

@@ -52,11 +52,15 @@ const ProfileEditPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
     if (user && profile) {
       const edited = await profileService.edit(user, {
         ...form,
+        applied: profile.applied,
+        email: user.email,
       })
       if (edited.status && edited.editedProfile) {
         dispatch(
           postOrEditProfileActionCreator({
             ...form,
+            applied: profile.applied,
+            email: user.email,
           }),
         )
         if (formRef && formRef.current) formRef.current.reset()
@@ -90,26 +94,28 @@ const ProfileEditPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
 
   const onDelete = (e: React.FormEvent) => {
     e.preventDefault()
-    if (profile && window.confirm('Are you sure you want to delete?')) {
-      profileService
-        .remove(user, profile)
-        .then((res) => {
-          console.log('HELLO WOLRD: ', res)
-          dispatch(removeProfileActionCreator())
-          setForm({
-            name: '',
-            city: '',
-            highest_degree: '',
-            hobbies: '',
-            experience_level: '',
-            description: '',
-            candidateId: '',
+    if (profile) {
+      if (window.confirm('Are you sure you want to delete?')) {
+        profileService
+          .remove(user, profile)
+          .then((res) => {
+            console.log('HELLO WOLRD: ', res)
+            dispatch(removeProfileActionCreator())
+            setForm({
+              name: '',
+              city: '',
+              highest_degree: '',
+              hobbies: '',
+              experience_level: '',
+              description: '',
+              candidateId: '',
+            })
+            if (formRef && formRef.current) formRef.current.reset()
+            alert('Successfully deleted')
+            history.push('/home')
           })
-          if (formRef && formRef.current) formRef.current.reset()
-          alert('Successfully deleted')
-          history.push('/home')
-        })
-        .catch((err) => console.log('Failed to delete profile: ', err))
+          .catch((err) => console.log('Failed to delete profile: ', err))
+      }
     } else alert('Nothing to delete')
   }
 

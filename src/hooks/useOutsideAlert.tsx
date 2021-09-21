@@ -5,8 +5,9 @@ const useOutsideAlert = (initialValue: boolean) => {
   const [close, setClose] = useState<boolean>(initialValue)
 
   const handleClickOutside = (e: any) => {
-    if (ref.current && !ref.current.contains(e.target)) setClose(true)
-    else setClose(false)
+    if (ref.current && !ref.current.contains(e.target)) {
+      setClose(true)
+    } else setClose(false)
   }
 
   useEffect(() => {
