@@ -2,12 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, Link } from 'react-router-dom'
 import { State } from '../../store/type'
-import { createOrUpdateUserActionCreator } from '../../store/slices'
-
-import UserPool from '../../pool/UserPool'
+import { addPreUserActionCreator } from '../../store/slices'
 import styles from './Signup.module.css'
-import AuthService from '../../service/auth-service'
-import UserService from '../../service/user-service'
 import ValidationService from '../../service/validation-service'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
@@ -24,9 +20,7 @@ const Signup: React.FC = () => {
   const dispatch = useDispatch()
   const user = useSelector((state: State) => state.user)
   const history = useHistory()
-  const authService = new AuthService()
   const validationService = new ValidationService()
-  const userService = new UserService()
   //
   const [errors, setErrors] = useState<Form>({
     name: '',
@@ -58,36 +52,18 @@ const Signup: React.FC = () => {
     })
   }
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     const isValid = validationService.validation(form, setErrors)
 
     if (isValid) {
-      // add user information into AWS Cognito
-      UserPool.signUp(form.email, form.password, [], [], async (err, data) => {
-        if (err) console.error('COG ERROR: ', err)
-        else if (data) {
-          const newUser = await userService.createUser(data, form)
-          if (newUser) {
-            // login to AWS
-            authService
-              .login(form.email, form.password)
-              .then(async (user: any) => {
-                console.log('SUCCESS LOGIN: ', user)
-                // add user information into Redux Store
-                dispatch(
-                  createOrUpdateUserActionCreator({
-                    ...newUser,
-                    token: user.idToken.jwtToken,
-                  }),
-                )
-                history.push('/')
-              })
-              .catch((err) => console.log('@@@@@@ UNABLE TO LOGIN: ', err))
-          } else console.log('FAILED TO ADD DB')
-        }
-      })
+      dispatch(
+        addPreUserActionCreator({
+          ...form,
+        }),
+      )
+      history.push('/confirm')
     }
   }
 
@@ -153,7 +129,10 @@ const Signup: React.FC = () => {
             {errors.role && <p className={styles.error}>{errors.role}</p>}
             <button className={styles.button}>Register</button>
             <span className={styles.login_link}>
-              Already have an account? Login <Link to="/login">here</Link>
+              Already have an account? Login{' '}
+              <Link className={styles.login_sub_link} to="/login">
+                here
+              </Link>
             </span>
           </form>
         </div>

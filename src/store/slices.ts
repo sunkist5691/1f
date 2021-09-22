@@ -16,6 +16,18 @@ const userSlice = createSlice({
     logout: (state, { payload }: PayloadAction<null>) => payload,
   },
 })
+
+const preUserSlice = createSlice({
+  name: 'preuser',
+  initialState: null,
+  reducers: {
+    addPreUser: (state, { payload }: PayloadAction<any>) => payload,
+  },
+  // extraReducers: {
+  //   [userSlice.actions.addOrUpdate.type]: (state) => null,
+  // },
+})
+
 const jobSlice = createSlice({
   name: 'job',
   initialState: null as Job | null,
@@ -72,6 +84,8 @@ export const {
   logout: logoutActionCreator,
 } = userSlice.actions
 
+export const { addPreUser: addPreUserActionCreator } = preUserSlice.actions
+
 export const {
   createOrUpdate: postOrEditProfileActionCreator,
   remove: removeProfileActionCreator,
@@ -90,6 +104,7 @@ export const { searchWord: searchWordActionCreator } = searchSlice.actions
 // combining reducers
 const reducer = combineReducers({
   user: userSlice.reducer,
+  preUser: preUserSlice.reducer,
   job: jobSlice.reducer,
   profile: profileSlice.reducer,
   jobAll: jobAllSlice.reducer,
@@ -99,5 +114,8 @@ const reducer = combineReducers({
 // middleware
 export default configureStore({
   reducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(logger),
 })

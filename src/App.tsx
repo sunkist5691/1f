@@ -20,6 +20,8 @@ import ProfileApplied from './components/ProfileApplied/ProfileApplied'
 import Home from './components/Home/Home'
 import Login from './components/Login/Login'
 import Signup from './components/Signup/Signup'
+import Confirm from './components/Confirm/Confirm'
+import PasswordReset from './components/PasswordReset/PasswordReset'
 import AuthService from './service/auth-service'
 import UserService from './service/user-service'
 import JobService from './service/job-service'
@@ -73,7 +75,6 @@ const App: React.FC<Props> = ({
         dispatch(postOrEditJobActionCreator(job))
       } else if (user && user.role === 'candidate') {
         const profile = await profileService.get(user)
-        console.log('******', profile)
         if (JSON.stringify(profile) === '{}') {
           console.error('App.tsx: No profile posted yet')
           return
@@ -101,6 +102,8 @@ const App: React.FC<Props> = ({
         <Route exact path={['/', '/home']} component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/confirm" component={Confirm} />
+        <Route path="/password-reset" component={PasswordReset} />
         <EmployerRoute path="/company/post" component={CompanyPostPage} />
         <EmployerRoute path="/company/edit" component={CompanyEditPage} />
         <EmployerRoute path="/company/menu" component={CompanyPage} />

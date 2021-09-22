@@ -82,7 +82,16 @@ const Login: React.FC = () => {
             <button className={styles.button}>Login</button>
             {errors && errorAlert()}
             <span className={styles.signup_link}>
-              Don't have an account? Signup <Link to="/signup">here</Link>
+              Forgot your password? Reset{' '}
+              <Link className={styles.signup_sub_link} to="/password-reset">
+                here
+              </Link>
+            </span>
+            <span className={styles.signup_link}>
+              Don't have an account? Signup{' '}
+              <Link className={styles.signup_sub_link} to="/signup">
+                here
+              </Link>
             </span>
           </form>
         </div>

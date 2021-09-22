@@ -29,7 +29,6 @@ const NavLinks: React.FC<Props> = ({ isMobile, closeMobileMenu }) => {
     dispatch(searchWordActionCreator(''))
   }
 
-  console.log('NavLink, RENDERING')
   return (
     <div className={styles.nav}>
       <Link className={styles.nav_button} to="/home" onClick={onMobile}>

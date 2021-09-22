@@ -40,6 +40,14 @@ const PostedJobs = () => {
               disabled={false}
             />
           ))
+        ) : jobAll && filteredJobs.length ? (
+          filteredJobs.map((eachJob) => (
+            <PostedSubJob
+              key={eachJob.userId}
+              eachJob={eachJob}
+              disabled={false}
+            />
+          ))
         ) : (
           <div className={styles.no_data_container}>
             <div className={styles.no_data_icon}>

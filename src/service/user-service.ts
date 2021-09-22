@@ -23,7 +23,7 @@ export default class UserService {
     return foundUser
   }
 
-  async createUser(data: any, form: Form) {
+  async createUser(userSub: any, form: Form) {
     const incomingUser = await fetch(
       `${process.env.REACT_APP_BASE_URL}/users/signup`,
       {
@@ -32,7 +32,7 @@ export default class UserService {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          id: data.userSub,
+          id: userSub,
           name: form.name.toLowerCase(),
           email: form.email.toLowerCase(),
           role: form.role,

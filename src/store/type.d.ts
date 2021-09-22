@@ -31,6 +31,7 @@ export interface Profile {
 
 export interface State {
   user: User | null
+  preUser: any
   profile: Profile | null
   job: Job | null
   jobAll: Job[] | []

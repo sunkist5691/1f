@@ -14,7 +14,7 @@
 .login_sub_two {
   display: flex;
   flex-direction: column;
-  height: 400px;
+  min-height: 400px;
   justify-content: center;
 }
 
@@ -65,6 +65,16 @@
 
 .signup_link {
   font-size: 1.5rem;
+}
+
+.signup_sub_link {
+  font-size: 1.5rem;
+  color: black;
+  cursor: pointer;
+}
+
+.signup_sub_link:hover {
+  color: grey;
 }
 
 .error {
