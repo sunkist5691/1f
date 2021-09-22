@@ -84,8 +84,3 @@
 .resend_link:hover {
   color: grey;
 }
-
-.error {
-  color: red;
-  font-size: 1.6rem;
-}

@@ -23,9 +23,6 @@ const preUserSlice = createSlice({
   reducers: {
     addPreUser: (state, { payload }: PayloadAction<any>) => payload,
   },
-  // extraReducers: {
-  //   [userSlice.actions.addOrUpdate.type]: (state) => null,
-  // },
 })
 
 const jobSlice = createSlice({

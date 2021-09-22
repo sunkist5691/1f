@@ -9,7 +9,6 @@ import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import AuthService from '../../service/auth-service'
 import UserService from '../../service/user-service'
-
 import styles from './Confirm.module.css'
 
 const Confirm: React.FC<RouteComponentProps<any>> = ({ history }) => {

@@ -11,7 +11,6 @@ import UserPool from '../../pool/UserPool'
 const PasswordReset: React.FC = () => {
   const history = useHistory()
   const user = useSelector((state: State) => state.user)
-  //
   const emailRef = useRef<HTMLInputElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
 
@@ -20,6 +19,8 @@ const PasswordReset: React.FC = () => {
   }, [history, user])
 
   const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+
     if (emailRef && emailRef.current) {
       const cognitoUser = new CognitoUser({
         Username: emailRef.current.value,
@@ -42,7 +43,6 @@ const PasswordReset: React.FC = () => {
         },
       })
     }
-    e.preventDefault()
 
     if (formRef.current) formRef.current.reset()
   }

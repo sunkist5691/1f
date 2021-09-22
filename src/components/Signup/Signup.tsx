@@ -21,7 +21,6 @@ const Signup: React.FC = () => {
   const user = useSelector((state: State) => state.user)
   const history = useHistory()
   const validationService = new ValidationService()
-  //
   const [errors, setErrors] = useState<Form>({
     name: '',
     email: '',
@@ -37,22 +36,19 @@ const Signup: React.FC = () => {
     confirmedPassword: '',
     role: '',
   })
-  //
 
   useEffect(() => {
     if (user) history.push('/')
   }, [history, user])
 
-  const onChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
+  const onChange = (e: any) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     })
   }
 
-  const onSubmit = async (e: React.FormEvent) => {
+  const onSubmit = async (e: any) => {
     e.preventDefault()
 
     const isValid = validationService.validation(form, setErrors)
