@@ -9,7 +9,7 @@ type Form = {
 export default class UserService {
   async getCurrentUser(user: any) {
     const currentUser = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/users/current-user`,
+      `${process.env.REACT_APP_PRODUCTION_URL}/users/current-user`,
       {
         method: 'POST',
         headers: {
@@ -25,7 +25,7 @@ export default class UserService {
 
   async createUser(userSub: any, form: Form) {
     const incomingUser = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/users/signup`,
+      `${process.env.REACT_APP_PRODUCTION_URL}/users/signup`,
       {
         method: 'POST',
         headers: {
