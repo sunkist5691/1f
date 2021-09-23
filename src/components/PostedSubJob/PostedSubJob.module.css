@@ -5,8 +5,10 @@
   width: 28%;
   min-width: 400px;
   font-size: 1.6rem;
-  border: 1px solid grey;
   border-radius: 3px;
+  box-shadow: 8px 6px 31px -5px rgba(153, 150, 150, 0.77);
+  -webkit-box-shadow: 8px 6px 31px -5px rgba(153, 150, 150, 0.77);
+  -moz-box-shadow: 8px 6px 31px -5px rgba(153, 150, 150, 0.77);
 }
 
 .container_sub {
@@ -15,22 +17,66 @@
   justify-content: space-around;
   padding: 20px 0 20px 20px;
   flex: 1;
+  gap: 1rem;
+}
+
+.job_title {
+  font-size: 2.3rem;
+}
+
+.company_city {
+  display: flex;
+}
+
+.company,
+.city {
+  font-size: 1.6rem;
+}
+
+.city,
+.job_type_container,
+.job_type_sub_container {
+  display: flex;
+}
+
+.job_type_container {
+  width: 95%;
+}
+
+.work_icon,
+.job_type_word {
+  margin: auto 0;
+}
+
+.job_type_word {
+  margin-left: 5px;
+}
+
+.expandButton {
+  display: flex;
+  justify-content: center;
+  width: 95%;
+  color: grey;
+  cursor: pointer;
+}
+
+.expandButton:hover {
+  color: black;
 }
 
 .button_group {
   display: flex;
-  justify-content: center;
-  padding: 10px 0;
+  margin-left: auto;
 }
 .button {
   padding: 5px 15px;
   font-size: 1.6rem;
   background-color: transparent;
-
+  color: grey;
   cursor: pointer;
-  border: 1px solid black;
+  border: none;
   border-radius: 3px;
 }
 .button:hover {
-  background-color: blanchedalmond;
+  color: black;
 }

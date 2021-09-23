@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Job, State } from '../../store/type'
 import {
   addApplicantActionCreator,
@@ -10,6 +10,9 @@ import styles from './PostedSubJob.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { capitalize } from '../../service/capitalize'
+import { BsDot } from 'react-icons/bs'
+import { MdWork, MdKeyboardArrowDown } from 'react-icons/md'
+import Popup from '../Popup/Popup'
 
 interface Props {
   eachJob: Job
@@ -22,6 +25,9 @@ const PostedSubJob: React.FC<Props> = ({ eachJob, disabled }) => {
   const history = useHistory()
   const profileService = new ProfileService()
   const jobService = new JobService()
+
+  const [disBtn, setDisBtn] = useState(false)
+  const [popup, setPopup] = useState(false)
 
   const onApply = async (e: any) => {
     if (!profile) {
@@ -37,6 +43,7 @@ const PostedSubJob: React.FC<Props> = ({ eachJob, disabled }) => {
         if (JSON.stringify(applied) === '{}') {
           dispatch(addApplicantActionCreator({ ...profile }))
           dispatch(addAppliedActionCreator({ ...eachJob }))
+          setDisBtn(true)
           alert('Successfully applied')
         } else {
           console.log('PostedSubJob.tsx / Cannot apply')
@@ -48,36 +55,42 @@ const PostedSubJob: React.FC<Props> = ({ eachJob, disabled }) => {
   return (
     <div className={styles.container}>
       <div className={styles.container_sub}>
-        <p>{capitalize(eachJob.job_title)}</p>
-        <p>{capitalize(eachJob.company)}</p>
-        <p>{capitalize(eachJob.city)}</p>
-        <p>
-          {eachJob.job_type
-            .split('_')
-            .map(
-              (eachWord) =>
-                eachWord.charAt(0).toUpperCase() + eachWord.slice(1),
-            )
-            .join(' ')}
-        </p>
-        <p>
-          {!Number(eachJob.experience_level)
-            ? 'No experience'
-            : `${eachJob.experience_level} years`}
-        </p>
-        <p>{capitalize(eachJob.description)}</p>
-      </div>
-      {user && user.token && user.role === 'candidate' ? (
-        <div className={styles.button_group}>
-          <button
-            onClick={onApply}
-            className={styles.button}
-            disabled={disabled}
-          >
-            {disabled ? 'In Progress' : 'Apply'}
-          </button>
+        <p className={styles.job_title}>{capitalize(eachJob.job_title)}</p>
+        <div className={styles.company_city}>
+          <p className={styles.company}>{capitalize(eachJob.company)}</p>
+          <div className={styles.city}>
+            <BsDot />
+            <p>{capitalize(eachJob.city)}</p>
+          </div>
         </div>
-      ) : null}
+        <div className={styles.job_type_container}>
+          <div className={styles.job_type_sub_container}>
+            <MdWork className={styles.work_icon} />
+            <p className={styles.job_type_word}>
+              {capitalize(eachJob.job_type)}
+            </p>
+          </div>
+          {user && user.token && user.role === 'candidate' ? (
+            <div className={styles.button_group}>
+              <button
+                onClick={onApply}
+                className={styles.button}
+                disabled={disabled ? disabled : disBtn}
+              >
+                {disabled || disBtn ? 'In Progress' : 'Apply'}
+              </button>
+            </div>
+          ) : null}
+        </div>
+        <div className={styles.expandButton} onClick={() => setPopup(true)}>
+          <MdKeyboardArrowDown size="30px" />
+        </div>
+        <Popup trigger={popup} setPopup={setPopup}>
+          <h3>Hello World, I'm Children</h3>
+        </Popup>
+        {/* <p>{countExp(eachJob.experience_level)}</p> */}
+        {/* <p>{capitalize(eachJob.description)}</p> */}
+      </div>
     </div>
   )
 }

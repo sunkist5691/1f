@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './ProfileAppliedSub.module.css'
 import { Job } from '../../store/type'
 import { capitalize } from '../../service/capitalize'
+import { countExp } from '../../service/countExp'
 
 interface Props {
   eachJob: Job
@@ -14,20 +15,8 @@ const ProfileAppliedSub: React.FC<Props> = ({ eachJob }) => {
         <p>{capitalize(eachJob.job_title)}</p>
         <p>{capitalize(eachJob.company)}</p>
         <p>{capitalize(eachJob.city)}</p>
-        <p>
-          {eachJob.job_type
-            .split('_')
-            .map(
-              (eachWord) =>
-                eachWord.charAt(0).toUpperCase() + eachWord.slice(1),
-            )
-            .join(' ')}
-        </p>
-        <p>
-          {!Number(eachJob.experience_level)
-            ? 'No experience needed'
-            : `${eachJob.experience_level} years needed`}
-        </p>
+        <p>{capitalize(eachJob.job_type)}</p>
+        <p>{countExp(eachJob.experience_level)}</p>
         <p>{eachJob.description}</p>
       </div>
     </div>

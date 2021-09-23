@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './CompanyApplicantsSubPage.module.css'
 import { Profile } from '../../store/type'
 import { capitalize } from '../../service/capitalize'
+import { countExp } from '../../service/countExp'
 
 interface Props {
   eachApplicant: Profile
@@ -16,11 +17,7 @@ const CompanyApplicantsSubPage: React.FC<Props> = ({ eachApplicant }) => {
         <p>{capitalize(eachApplicant.city)}</p>
         <p>{capitalize(eachApplicant.hobbies)}</p>
         <p>{eachApplicant.highest_degree}</p>
-        <p>
-          {!Number(eachApplicant.experience_level)
-            ? 'No experience'
-            : `${eachApplicant.experience_level} years`}
-        </p>
+        <p>{countExp(eachApplicant.experience_level)}</p>
         <p>{eachApplicant.description}</p>
       </div>
     </div>

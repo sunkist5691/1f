@@ -18,6 +18,7 @@ const PostedJobs = () => {
           .includes(search.toLowerCase())
       else return true
     })
+
   return (
     <div className={styles.container}>
       <div className={styles.container_sub}>

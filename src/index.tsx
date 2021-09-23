@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
 import App from './App'
 import AuthService from './service/auth-service'
 import UserService from './service/user-service'
@@ -9,6 +8,7 @@ import ProfileService from './service/profile-service'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './store/slices'
+import './index.css'
 
 const authService = new AuthService()
 const userService = new UserService()
