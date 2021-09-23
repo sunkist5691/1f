@@ -6,10 +6,10 @@ const CompanyMenuPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.container_sub}>
-        <Link className={`${styles.post} ${styles.box}`} to="/company/post">
+        <Link className={styles.box} to="/company/post">
           Post Company Job
         </Link>
-        <Link className={`${styles.edit} ${styles.box}`} to="/company/edit">
+        <Link className={styles.box} to="/company/edit">
           Edit Company Job
         </Link>
       </div>

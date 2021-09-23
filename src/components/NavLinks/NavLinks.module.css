@@ -29,13 +29,14 @@
     position: absolute;
     flex-direction: column;
     justify-content: center;
-    top: 46px;
+    top: calc(100% + 1.2rem);
+    right: -40px;
     background-color: black;
     width: 100vw;
-    right: -40px;
-    opacity: 0.8;
     padding-left: 27px;
+    opacity: 0.8;
   }
+
   .nav_button {
     color: white;
     border-radius: 0;

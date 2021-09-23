@@ -9,14 +9,20 @@
   box-shadow: 8px 6px 31px -5px rgba(153, 150, 150, 0.77);
   -webkit-box-shadow: 8px 6px 31px -5px rgba(153, 150, 150, 0.77);
   -moz-box-shadow: 8px 6px 31px -5px rgba(153, 150, 150, 0.77);
+  transition: 0.3s;
+}
+
+.container:hover {
+  transform: translateY(10px);
 }
 
 .container_sub {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding: 20px 0 20px 20px;
+  padding: 20px;
   flex: 1;
+  min-height: 200px;
   gap: 1rem;
 }
 
@@ -35,16 +41,23 @@
 
 .city,
 .job_type_container,
-.job_type_sub_container {
+.job_type_sub_container,
+.job_experience_container,
+.job_description_container {
   display: flex;
 }
 
 .job_type_container {
-  width: 95%;
+  width: 100%;
+}
+
+.job_experience_level {
+  margin-left: 5px;
 }
 
 .work_icon,
-.job_type_word {
+.job_type_word,
+.clock_icon {
   margin: auto 0;
 }
 
@@ -55,7 +68,7 @@
 .expandButton {
   display: flex;
   justify-content: center;
-  width: 95%;
+  width: 100%;
   color: grey;
   cursor: pointer;
 }

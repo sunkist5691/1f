@@ -30,67 +30,69 @@ const NavLinks: React.FC<Props> = ({ isMobile, closeMobileMenu }) => {
   }
 
   return (
-    <div className={styles.nav}>
-      <Link className={styles.nav_button} to="/home" onClick={onMobile}>
-        Home
-      </Link>
-      {user && user.token && user.role === 'employer' && (
-        <Link
-          className={styles.nav_button}
-          to={`/company/menu`}
-          onClick={onMobile}
-        >
-          Job
+    <div className={styles.nav_container}>
+      <div className={styles.nav}>
+        <Link className={styles.nav_button} to="/home" onClick={onMobile}>
+          Home
         </Link>
-      )}
-      {user && user.token && user.role === 'employer' && (
-        <Link
-          className={styles.nav_button}
-          to={`/company/applicants`}
-          onClick={onMobile}
-        >
-          Applicants
-        </Link>
-      )}
-      {user && user.token && user.role === 'candidate' && (
-        <>
+        {user && user.token && user.role === 'employer' && (
           <Link
             className={styles.nav_button}
-            to={`/profile/menu`}
+            to={`/company/menu`}
             onClick={onMobile}
           >
-            Profile
+            Job
           </Link>
+        )}
+        {user && user.token && user.role === 'employer' && (
           <Link
             className={styles.nav_button}
-            to={`/profile/applied`}
+            to={`/company/applicants`}
             onClick={onMobile}
           >
-            Applied
+            Applicants
           </Link>
-        </>
-      )}
-      {user && user.token ? (
-        <Link
-          className={styles.nav_button}
-          to="/login"
-          onClick={() => {
-            onMobile()
-            onLogout()
-          }}
-        >
-          Logout
-        </Link>
-      ) : (
-        <Link className={styles.nav_button} to="/login" onClick={onMobile}>
-          Login
-        </Link>
-      )}
-      {!user && (
-        <Link className={styles.nav_button} to="/signup" onClick={onMobile}>
-          Signup
-        </Link>
-      )}
+        )}
+        {user && user.token && user.role === 'candidate' && (
+          <>
+            <Link
+              className={styles.nav_button}
+              to={`/profile/menu`}
+              onClick={onMobile}
+            >
+              Profile
+            </Link>
+            <Link
+              className={styles.nav_button}
+              to={`/profile/applied`}
+              onClick={onMobile}
+            >
+              Applied
+            </Link>
+          </>
+        )}
+        {user && user.token ? (
+          <Link
+            className={styles.nav_button}
+            to="/login"
+            onClick={() => {
+              onMobile()
+              onLogout()
+            }}
+          >
+            Logout
+          </Link>
+        ) : (
+          <Link className={styles.nav_button} to="/login" onClick={onMobile}>
+            Login
+          </Link>
+        )}
+        {!user && (
+          <Link className={styles.nav_button} to="/signup" onClick={onMobile}>
+            Signup
+          </Link>
+        )}
+      </div>
     </div>
   )
 }

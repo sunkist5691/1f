@@ -19,10 +19,14 @@
   background-color: blanchedalmond;
   padding: 8rem 5rem;
   border-radius: 5px;
+  transition: 0.3s;
+  box-shadow: 8px 6px 31px -5px rgba(153, 150, 150, 0.77);
+  -webkit-box-shadow: 8px 6px 31px -5px rgba(153, 150, 150, 0.77);
+  -moz-box-shadow: 8px 6px 31px -5px rgba(153, 150, 150, 0.77);
 }
 
 .box:hover {
-  opacity: 0.7;
+  transform: translateY(-10px);
 }
 
 @media screen and (max-width: 1120px) {

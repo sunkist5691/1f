@@ -5,14 +5,98 @@
   width: 28%;
   min-width: 400px;
   font-size: 1.6rem;
-  border: 1px solid grey;
   border-radius: 3px;
+  box-shadow: 8px 6px 31px -5px rgba(153, 150, 150, 0.77);
+  -webkit-box-shadow: 8px 6px 31px -5px rgba(153, 150, 150, 0.77);
+  -moz-box-shadow: 8px 6px 31px -5px rgba(153, 150, 150, 0.77);
+  transition: 0.3s;
+}
+
+.container:hover {
+  transform: translateY(10px);
 }
 
 .container_sub {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding: 20px 0 20px 20px;
+  padding: 20px;
   flex: 1;
+  min-height: 200px;
+  gap: 1rem;
+}
+
+.name {
+  font-size: 2.3rem;
+  margin-bottom: 5px;
+}
+
+.city {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.city_container {
+  display: flex;
+  gap: 5px;
+}
+
+.email_container {
+  display: flex;
+  gap: 5px;
+}
+
+.job_type_container,
+.job_type_sub_container,
+.job_experience_container,
+.job_description_container {
+  display: flex;
+}
+
+.job_type_container {
+  width: 100%;
+}
+
+.job_experience_level {
+  margin-left: 5px;
+}
+
+.work_icon,
+.job_type_word,
+.clock_icon {
+  margin: auto 0;
+}
+
+.job_type_word {
+  margin-left: 5px;
+}
+
+.expandButton {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  color: grey;
+  cursor: pointer;
+}
+
+.expandButton:hover {
+  color: black;
+}
+
+.button_group {
+  display: flex;
+  margin-left: auto;
+}
+.button {
+  padding: 5px 15px;
+  font-size: 1.6rem;
+  background-color: transparent;
+  color: grey;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+}
+.button:hover {
+  color: black;
 }
