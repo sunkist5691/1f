@@ -44,7 +44,7 @@ const App: React.FC<Props> = ({
 }) => {
   const history = useHistory()
   const dispatch = useDispatch()
-  const user = useSelector((state: State) => state.user)
+  const { job, profile, user } = useSelector((state: State) => state)
 
   useEffect(() => {
     authService.checkUser().then(async (user: any) => {
@@ -94,7 +94,7 @@ const App: React.FC<Props> = ({
       .catch((err) => {
         console.log('App.tsx / None of the job posting available: ', err)
       })
-  }, [dispatch, jobService, user])
+  }, [dispatch, jobService, user, job, profile])
 
   return (
     <div className={styles.app}>

@@ -28,7 +28,7 @@ const PostedSubJob: React.FC<Props> = ({ eachJob, disabled }) => {
   const profileService = new ProfileService()
   const jobService = new JobService()
 
-  const [disBtn, setDisBtn] = useState(false)
+  // const [disBtn, setDisBtn] = useState(false)
   const [info, setInfo] = useState(false)
 
   const onApply = async (e: any) => {
@@ -41,11 +41,9 @@ const PostedSubJob: React.FC<Props> = ({ eachJob, disabled }) => {
         const applied2 = await jobService.addApplicant(user, eachJob.userId, {
           ...profile,
         })
-        console.log('*********', applied2)
-        if (JSON.stringify(applied) === '{}') {
+        if (JSON.stringify(applied2) === '{}') {
           dispatch(addApplicantActionCreator({ ...profile }))
           dispatch(addAppliedActionCreator({ ...eachJob }))
-          setDisBtn(true)
           alert('Successfully applied')
         } else {
           console.log('PostedSubJob.tsx / Cannot apply')
@@ -96,9 +94,9 @@ const PostedSubJob: React.FC<Props> = ({ eachJob, disabled }) => {
                   <button
                     onClick={onApply}
                     className={styles.button}
-                    disabled={disabled ? disabled : disBtn}
+                    disabled={disabled}
                   >
-                    {disabled || disBtn ? 'In Progress' : 'Apply'}
+                    {disabled ? 'In Progress' : 'Apply'}
                   </button>
                 </div>
               ) : null}

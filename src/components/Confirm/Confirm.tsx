@@ -79,14 +79,17 @@ const Confirm: React.FC<RouteComponentProps<any>> = ({ history }) => {
       [attributeEmail],
       [],
       async (err, data) => {
-        if (err) console.error('COG ERROR: ', err)
-        else if (data) {
+        if (err) {
+          alert('The email already exist')
+          history.push('/signup')
+          console.error('COG ERROR: ', err)
+        } else if (data) {
           console.log('THE DATA ----> ', data)
           setPreSignUser({ userSub: data.userSub, cognitoUser: data.user })
         }
       },
     )
-  }, [preUser.email, preUser.password])
+  }, [preUser.email, preUser.password, history])
 
   return (
     <div className={styles.confirm}>
