@@ -14,8 +14,10 @@ const PostedJobs = () => {
       if (search.trim())
         return Object.values({ ...eachJob, userId: '' })
           .join(' ')
+          .split('_')
+          .join('')
           .toLowerCase()
-          .includes(search.toLowerCase())
+          .includes(search.trim().toLowerCase())
       else return true
     })
 
