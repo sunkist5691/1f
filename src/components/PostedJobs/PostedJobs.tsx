@@ -57,7 +57,7 @@ const PostedJobs = () => {
               <BiCommentError />
             </div>
             <div className={styles.no_data}>
-              Sorry we couldn't find any result
+              Sorry we couldn't find any available jobs
             </div>
           </div>
         )}

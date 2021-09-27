@@ -2,14 +2,15 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 20px 0;
+  align-items: flex-start;
+  flex: 1;
 }
 
 .container_sub {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 70px;
+  justify-content: space-around;
+  align-items: flex-start;
 }
 
 .no_data_icon {

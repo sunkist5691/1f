@@ -37,18 +37,19 @@ const Login: React.FC = () => {
         .login(email, password)
         .then(async (curUser: any) => {
           const foundUser = await userService.getCurrentUser(curUser)
-          if (foundUser && foundUser.email) {
-            dispatch(
-              createOrUpdateUserActionCreator({
-                id: foundUser.id,
-                name: foundUser.name,
-                email: foundUser.email,
-                role: foundUser.role,
-                token: curUser.idToken.jwtToken,
-              }),
-            )
-            history.push('/home')
+          if (foundUser && !foundUser.email) {
+            throw new Error()
           }
+          dispatch(
+            createOrUpdateUserActionCreator({
+              id: foundUser.id,
+              name: foundUser.name,
+              email: foundUser.email,
+              role: foundUser.role,
+              token: curUser.idToken.jwtToken,
+            }),
+          )
+          history.push('/home')
         })
         .catch((err) => setErrors('Incorrect Email and Password'))
     }

@@ -86,14 +86,15 @@ const App: React.FC<Props> = ({
   }, [user, dispatch, jobService, profileService])
 
   useEffect(() => {
-    jobService
-      .getAll()
-      .then((res) => {
-        dispatch(saveAllJobsActionCreator(res))
-      })
-      .catch((err) => {
-        console.log('App.tsx / None of the job posting available: ', err)
-      })
+    const run = async () => {
+      const allJobs = await jobService.getAll()
+      if (allJobs.statusCode === 400) {
+        console.error('App.tsx: None of the jobs available yet')
+        return
+      }
+      dispatch(saveAllJobsActionCreator(allJobs))
+    }
+    run()
   }, [dispatch, jobService, user, job, profile])
 
   return (

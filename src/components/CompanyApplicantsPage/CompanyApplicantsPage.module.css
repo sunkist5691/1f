@@ -8,8 +8,9 @@
 .container_sub {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 70px;
+  align-items: flex-start;
+  justify-content: space-around;
+  flex: 1;
 }
 
 .no_data_icon {
