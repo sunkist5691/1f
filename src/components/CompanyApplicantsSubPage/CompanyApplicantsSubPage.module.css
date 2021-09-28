@@ -5,6 +5,7 @@
   width: 28%;
   margin: 25px;
   min-width: 400px;
+  max-width: 400px;
   font-size: 1.6rem;
   border-radius: 3px;
   box-shadow: 8px 6px 31px -5px rgba(153, 150, 150, 0.77);

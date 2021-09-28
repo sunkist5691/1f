@@ -52,6 +52,12 @@ const Header: React.FC = () => {
     }
   }
 
+  const onClick = (e: any) => {
+    searchRef.current && searchRef.current.select()
+    dispatch(searchWordActionCreator(search))
+    history.push('/home')
+  }
+
   return (
     <div className={styles.header}>
       <div className={styles.logo} onClick={() => history.push('/home')}>
@@ -78,7 +84,9 @@ const Header: React.FC = () => {
                   value={search}
                   placeholder="Search Company"
                 />
-                <AiOutlineSearch size="2.2rem" color="grey" />
+                <div className={styles.search_icon_big} onClick={onClick}>
+                  <AiOutlineSearch size="2.2rem" color="grey" />
+                </div>
               </div>
             </>
           ) : (
@@ -112,7 +120,9 @@ const Header: React.FC = () => {
             value={search}
             placeholder="Search Company"
           />
-          <AiOutlineSearch size="2.2rem" color="grey" />
+          <div className={styles.search_icon_big} onClick={onClick}>
+            <AiOutlineSearch size="2.2rem" color="grey" />
+          </div>
         </div>
       )}
 

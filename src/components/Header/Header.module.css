@@ -6,6 +6,10 @@
   background-color: blanchedalmond;
 }
 
+.search_icon_big {
+  cursor: pointer;
+}
+
 .search_icon {
   display: flex;
   align-items: center;
