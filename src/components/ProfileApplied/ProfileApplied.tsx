@@ -22,7 +22,7 @@ const ProfileApplied = () => {
             <div className={styles.no_data_icon}>
               <BiCommentError />
             </div>
-            <div className={styles.no_data}>No applicants received yet</div>
+            <div className={styles.no_data}>Haven't applied yet</div>
           </div>
         )}
       </div>
