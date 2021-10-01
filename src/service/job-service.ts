@@ -2,7 +2,7 @@ import { Job, Profile } from '../store/type'
 
 export default class JobService {
   async getAll() {
-    const jobs = await fetch(`${process.env.REACT_APP_PRODUCTION_URL}/jobs`, {
+    const jobs = await fetch(`${process.env.REACT_APP_BASE_URL}/jobs`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -14,7 +14,7 @@ export default class JobService {
 
   async get(user: any) {
     const job = await fetch(
-      `${process.env.REACT_APP_PRODUCTION_URL}/jobs/${user.id}`,
+      `${process.env.REACT_APP_BASE_URL}/jobs/${user.id}`,
       {
         method: 'GET',
         headers: {
@@ -27,7 +27,7 @@ export default class JobService {
   }
 
   async add(user: any, form: Job) {
-    const job = await fetch(`${process.env.REACT_APP_PRODUCTION_URL}/jobs`, {
+    const job = await fetch(`${process.env.REACT_APP_BASE_URL}/jobs`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ export default class JobService {
 
   async addApplicant(user: any, jobId: string, profile: Profile) {
     const added = await fetch(
-      `${process.env.REACT_APP_PRODUCTION_URL}/jobs/${jobId}`,
+      `${process.env.REACT_APP_BASE_URL}/jobs/${jobId}`,
       {
         method: 'POST',
         headers: {
@@ -56,7 +56,7 @@ export default class JobService {
   }
 
   async edit(user: any, form: Job) {
-    const job = await fetch(`${process.env.REACT_APP_PRODUCTION_URL}/jobs`, {
+    const job = await fetch(`${process.env.REACT_APP_BASE_URL}/jobs`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ export default class JobService {
 
   async remove(user: any, form: Job) {
     const job = await fetch(
-      `${process.env.REACT_APP_PRODUCTION_URL}/jobs/${form.userId}`,
+      `${process.env.REACT_APP_BASE_URL}/jobs/${form.userId}`,
       {
         method: 'DELETE',
         headers: {

@@ -27,8 +27,6 @@ const PostedSubJob: React.FC<Props> = ({ eachJob, disabled }) => {
   const history = useHistory()
   const profileService = new ProfileService()
   const jobService = new JobService()
-
-  // const [disBtn, setDisBtn] = useState(false)
   const [info, setInfo] = useState(false)
 
   const onApply = async (e: any) => {
@@ -36,14 +34,28 @@ const PostedSubJob: React.FC<Props> = ({ eachJob, disabled }) => {
       alert('Please add your profile first before you apply')
       history.push('/profile/post')
     } else {
-      const applied = await profileService.addApplied(user, { ...eachJob })
+      const applied = await profileService.addApplied(user, {
+        ...eachJob,
+        applicants: [...eachJob.applicants, { ...profile }],
+      })
       if (JSON.stringify(applied) === '{}') {
         const applied2 = await jobService.addApplicant(user, eachJob.userId, {
           ...profile,
+          applied: [...profile.applied, { ...eachJob }],
         })
         if (JSON.stringify(applied2) === '{}') {
-          dispatch(addApplicantActionCreator({ ...profile }))
-          dispatch(addAppliedActionCreator({ ...eachJob }))
+          dispatch(
+            addApplicantActionCreator({
+              ...profile,
+              applied: [...profile.applied, { ...eachJob }],
+            }),
+          )
+          dispatch(
+            addAppliedActionCreator({
+              ...eachJob,
+              applicants: [...eachJob.applicants, { ...profile }],
+            }),
+          )
           alert('Successfully applied')
         } else {
           console.log('PostedSubJob.tsx / Cannot apply')

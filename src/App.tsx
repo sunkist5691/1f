@@ -28,6 +28,7 @@ import JobService from './service/job-service'
 import ProfileService from './service/profile-service'
 import styles from './App.module.css'
 import { State } from './store/type'
+import RecordVideo from './components/RecordVideo/RecordVideo'
 
 interface Props {
   authService: AuthService
@@ -116,6 +117,7 @@ const App: React.FC<Props> = ({
         <CandidateRoute path="/profile/post" component={ProfilePostPage} />
         <CandidateRoute path="/profile/edit" component={ProfileEditPage} />
         <CandidateRoute path="/profile/menu" component={ProfilePage} />
+        <CandidateRoute path="/record-video" component={RecordVideo} />
       </Switch>
     </div>
   )

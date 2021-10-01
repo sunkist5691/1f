@@ -42,6 +42,7 @@ const ProfilePostPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
         candidateId: user.id,
         applied: [],
         email: user.email,
+        video_request: [],
       })
       if (added.status) {
         alert('Successfully added')
@@ -50,6 +51,7 @@ const ProfilePostPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
             ...form,
             candidateId: user.id,
             applied: [],
+            video_request: [],
             email: user.email,
           }),
         )

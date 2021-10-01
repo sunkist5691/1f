@@ -67,6 +67,19 @@
   margin-left: 5px;
 }
 
+.record_video {
+  color: grey;
+  margin-left: auto;
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding-top: 4px;
+  text-decoration: none;
+}
+
+.record_video:hover {
+  color: black;
+}
+
 .expandButton {
   display: flex;
   justify-content: center;

@@ -27,6 +27,7 @@ export interface Profile {
   experience_level: string
   description: string
   applied: Job[]
+  video_request: Job[]
 }
 
 export interface State {

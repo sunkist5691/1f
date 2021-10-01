@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import styles from './ProfileAppliedSub.module.css'
-import { Job } from '../../store/type'
+import { Job, State } from '../../store/type'
+import { useSelector } from 'react-redux'
 import { capitalize } from '../../service/capitalize'
 import { countExp } from '../../service/countExp'
 import { BsDot } from 'react-icons/bs'
 import { MdWork, MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md'
 import { ImClock } from 'react-icons/im'
+import { Link } from 'react-router-dom'
 
 interface Props {
   eachJob: Job
@@ -13,7 +15,7 @@ interface Props {
 
 const ProfileAppliedSub: React.FC<Props> = ({ eachJob }) => {
   const [info, setInfo] = useState(false)
-
+  const profile = useSelector((state: State) => state.profile)
   return (
     <div className={styles.container}>
       <div className={styles.container_sub}>
@@ -51,6 +53,14 @@ const ProfileAppliedSub: React.FC<Props> = ({ eachJob }) => {
                   {capitalize(eachJob.job_type)}
                 </p>
               </div>
+              {profile &&
+                profile.video_request.some(
+                  (eachRequest) => eachRequest.userId === eachJob.userId,
+                ) && (
+                  <Link to="/record-video" className={styles.record_video}>
+                    Start Video Interview
+                  </Link>
+                )}
             </div>
             <div className={styles.expandButton} onClick={() => setInfo(!info)}>
               <MdKeyboardArrowDown size="30px" />

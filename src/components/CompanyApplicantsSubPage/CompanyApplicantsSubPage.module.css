@@ -49,14 +49,14 @@
   gap: 5px;
 }
 
-.job_type_container,
-.job_type_sub_container,
+.hobby_container,
+.hobby_sub_container,
 .job_experience_container,
 .job_description_container {
   display: flex;
 }
 
-.job_type_container {
+.hobby_container {
   width: 100%;
 }
 
@@ -64,14 +64,26 @@
   margin-left: 5px;
 }
 
-.work_icon,
-.job_type_word,
+.hobby_icon,
+.hobby_word,
 .clock_icon {
   margin: auto 0;
 }
 
-.job_type_word {
+.hobby_word {
   margin-left: 5px;
+}
+
+.request_status {
+  color: grey;
+  margin-left: auto;
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding-top: 4px;
+}
+
+.request_status:hover {
+  color: black;
 }
 
 .expandButton {

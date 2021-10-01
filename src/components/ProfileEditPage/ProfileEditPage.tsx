@@ -54,6 +54,7 @@ const ProfileEditPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
         ...form,
         applied: profile.applied,
         email: user.email,
+        video_request: [...profile.video_request],
       })
       if (edited.status && edited.editedProfile) {
         dispatch(
@@ -61,6 +62,7 @@ const ProfileEditPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
             ...form,
             applied: profile.applied,
             email: user.email,
+            video_request: [],
           }),
         )
         if (formRef && formRef.current) formRef.current.reset()
