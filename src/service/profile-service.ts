@@ -14,19 +14,22 @@ type Form = {
 }
 export default class ProfileService {
   async getAll() {
-    const profiles = await fetch(`${process.env.REACT_APP_BASE_URL}/profiles`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    const profiles = await fetch(
+      `${process.env.REACT_APP_PRODUCTION_URL}/profiles`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    })
+    )
 
     return await profiles.json()
   }
 
   async get(user: any) {
     const profile = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/profiles/${user.id}`,
+      `${process.env.REACT_APP_PRODUCTION_URL}/profiles/${user.id}`,
       {
         method: 'GET',
         headers: {
@@ -39,21 +42,24 @@ export default class ProfileService {
   }
 
   async add(user: any, form: Form) {
-    const profile = await fetch(`${process.env.REACT_APP_BASE_URL}/profiles`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        token: user.token,
+    const profile = await fetch(
+      `${process.env.REACT_APP_PRODUCTION_URL}/profiles`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          token: user.token,
+        },
+        body: JSON.stringify({ ...form }),
       },
-      body: JSON.stringify({ ...form }),
-    })
+    )
 
     return await profile.json()
   }
 
   async addApplied(user: any, job: Job) {
     const added = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/profiles/${user.id}`,
+      `${process.env.REACT_APP_PRODUCTION_URL}/profiles/${user.id}`,
       {
         method: 'POST',
         headers: {
@@ -67,21 +73,24 @@ export default class ProfileService {
   }
 
   async edit(user: any, form: Form) {
-    const profile = await fetch(`${process.env.REACT_APP_BASE_URL}/profiles`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        token: user.token,
+    const profile = await fetch(
+      `${process.env.REACT_APP_PRODUCTION_URL}/profiles`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          token: user.token,
+        },
+        body: JSON.stringify({ ...form }),
       },
-      body: JSON.stringify({ ...form }),
-    })
+    )
 
     return await profile.json()
   }
 
   async remove(user: any, form: Form) {
     const profile = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/profiles/${form.candidateId}`,
+      `${process.env.REACT_APP_PRODUCTION_URL}/profiles/${form.candidateId}`,
       {
         method: 'DELETE',
         headers: {
