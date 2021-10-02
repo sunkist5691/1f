@@ -9,6 +9,7 @@ const VideoRecorderFrom: React.FC<Props> = ({ history }) => {
     <VideoRecorder
       isFlipped={false}
       countdownTime={3000}
+      timeLimit={90000}
       mimeType="video/webm;codecs=vp8,opus"
       constraints={{
         audio: true,
