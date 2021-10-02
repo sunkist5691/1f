@@ -30,35 +30,37 @@ const PostedSubJob: React.FC<Props> = ({ eachJob, disabled }) => {
   const [info, setInfo] = useState(false)
 
   const onApply = async (e: any) => {
-    if (!profile) {
-      alert('Please add your profile first before you apply')
-      history.push('/profile/post')
-    } else {
-      const applied = await profileService.addApplied(user, {
-        ...eachJob,
-        applicants: [...eachJob.applicants, { ...profile }],
-      })
-      if (JSON.stringify(applied) === '{}') {
-        const applied2 = await jobService.addApplicant(user, eachJob.userId, {
-          ...profile,
-          applied: [...profile.applied, { ...eachJob }],
+    if (window.confirm('Are you sure you want to apply?')) {
+      if (!profile) {
+        alert('Please add your profile first before you apply')
+        history.push('/profile/post')
+      } else {
+        const applied = await profileService.addApplied(user, {
+          ...eachJob,
+          applicants: [...eachJob.applicants, { ...profile }],
         })
-        if (JSON.stringify(applied2) === '{}') {
-          dispatch(
-            addApplicantActionCreator({
-              ...profile,
-              applied: [...profile.applied, { ...eachJob }],
-            }),
-          )
-          dispatch(
-            addAppliedActionCreator({
-              ...eachJob,
-              applicants: [...eachJob.applicants, { ...profile }],
-            }),
-          )
-          alert('Successfully applied')
-        } else {
-          console.log('PostedSubJob.tsx / Cannot apply')
+        if (JSON.stringify(applied) === '{}') {
+          const applied2 = await jobService.addApplicant(user, eachJob.userId, {
+            ...profile,
+            applied: [...profile.applied, { ...eachJob }],
+          })
+          if (JSON.stringify(applied2) === '{}') {
+            dispatch(
+              addApplicantActionCreator({
+                ...profile,
+                applied: [...profile.applied, { ...eachJob }],
+              }),
+            )
+            dispatch(
+              addAppliedActionCreator({
+                ...eachJob,
+                applicants: [...eachJob.applicants, { ...profile }],
+              }),
+            )
+            alert('Successfully applied')
+          } else {
+            console.log('PostedSubJob.tsx / Cannot apply')
+          }
         }
       }
     }
