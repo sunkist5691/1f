@@ -41,6 +41,7 @@ const CompanyPostPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
         ...form,
         userId: user.id,
         applicants: [],
+        videoReceived: [],
       })
       if (added.status) {
         alert('Successfully added')
@@ -49,6 +50,7 @@ const CompanyPostPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
             ...form,
             userId: user.id,
             applicants: [],
+            videoReceived: [],
           }),
         )
         setForm({

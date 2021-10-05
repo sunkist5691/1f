@@ -2,9 +2,10 @@ import VideoRecorder from 'react-video-recorder'
 
 interface Props {
   history: any
+  location: any
 }
 
-const VideoRecorderFrom: React.FC<Props> = ({ history }) => {
+const VideoRecorderFrom: React.FC<Props> = ({ history, location }) => {
   return (
     <VideoRecorder
       isFlipped={false}
@@ -21,8 +22,10 @@ const VideoRecorderFrom: React.FC<Props> = ({ history }) => {
         },
       }}
       onRecordingComplete={(videoBlob: any) => {
-        console.log('videoBlob', videoBlob)
-        history.push('/preview-video', { videoBlob })
+        history.push('/preview-video', {
+          ...location.state,
+          videoBlob,
+        })
       }}
     />
   )

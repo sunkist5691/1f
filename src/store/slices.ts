@@ -25,6 +25,14 @@ const preUserSlice = createSlice({
   },
 })
 
+const currentVideoSlice = createSlice({
+  name: 'currentVideo',
+  initialState: null,
+  reducers: {
+    addCurrentVideo: (state, { payload }: PayloadAction<any>) => payload,
+  },
+})
+
 const jobSlice = createSlice({
   name: 'job',
   initialState: null as Job | null,
@@ -48,6 +56,14 @@ const profileSlice = createSlice({
       payload,
     addApplied: (state, { payload }: PayloadAction<Job>) => {
       if (state) state.applied.push(payload)
+    },
+    editApplied: (state, { payload }: PayloadAction<Job>) => {
+      if (state) {
+        const filtered = state.applied.filter(
+          (job) => job.userId !== payload.userId,
+        )
+        state.applied = [...filtered, payload]
+      }
     },
     remove: (state) => null,
   },
@@ -82,11 +98,15 @@ export const {
 } = userSlice.actions
 
 export const { addPreUser: addPreUserActionCreator } = preUserSlice.actions
+export const {
+  addCurrentVideo: currentVideoActionCreator,
+} = currentVideoSlice.actions
 
 export const {
   createOrUpdate: postOrEditProfileActionCreator,
   remove: removeProfileActionCreator,
   addApplied: addAppliedActionCreator,
+  editApplied: editAppliedActionCreator,
 } = profileSlice.actions
 
 export const {
@@ -102,6 +122,7 @@ export const { searchWord: searchWordActionCreator } = searchSlice.actions
 const reducer = combineReducers({
   user: userSlice.reducer,
   preUser: preUserSlice.reducer,
+  currentVideo: currentVideoSlice.reducer,
   job: jobSlice.reducer,
   profile: profileSlice.reducer,
   jobAll: jobAllSlice.reducer,

@@ -13,6 +13,7 @@ import CompanyPage from './components/CompanyPage/CompanyPage'
 import CompanyPostPage from './components/CompanyPostPage/CompanyPostPage'
 import CompanyEditPage from './components/CompanyEditPage/CompanyEditPage'
 import CompanyApplicantsPage from './components/CompanyApplicantsPage/CompanyApplicantsPage'
+import WatchVideo from './components/WatchVideo/WatchVideo'
 import ProfilePage from './components/ProfilePage/ProfilePage'
 import ProfileEditPage from './components/ProfileEditPage/ProfileEditPage'
 import ProfilePostPage from './components/ProfilePostPage/ProfilePostPage'
@@ -114,6 +115,7 @@ const App: React.FC<Props> = ({
           path="/company/applicants"
           component={CompanyApplicantsPage}
         />
+        <EmployerRoute path="/company/watch-video" component={WatchVideo} />
         <CandidateRoute path="/profile/applied" component={ProfileApplied} />
         <CandidateRoute path="/profile/post" component={ProfilePostPage} />
         <CandidateRoute path="/profile/edit" component={ProfileEditPage} />

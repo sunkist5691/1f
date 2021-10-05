@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import styles from './CompanyApplicantsSubPage.module.css'
 import { capitalize } from '../../service/capitalize'
@@ -15,9 +15,11 @@ import {
 import { ImClock } from 'react-icons/im'
 import { Profile, State } from '../../store/type'
 import {
+  currentVideoActionCreator,
   postOrEditJobActionCreator,
   postOrEditProfileActionCreator,
 } from '../../store/slices'
+import { Link } from 'react-router-dom'
 
 interface Props {
   eachApplicant: Profile
@@ -25,10 +27,11 @@ interface Props {
 
 const CompanyApplicantSubPage: React.FC<Props> = ({ eachApplicant }) => {
   const [info, setInfo] = useState(false)
-  const { user, job } = useSelector((state: State) => state)
+  const { user, job, currentVideo } = useSelector((state: State) => state)
   const dispatch = useDispatch()
   const profileService = useMemo(() => new ProfileService(), [])
   const jobService = useMemo(() => new JobService(), [])
+
   const onRequest = async () => {
     if (job) {
       const requested = await profileService.edit(user, {
@@ -38,7 +41,6 @@ const CompanyApplicantSubPage: React.FC<Props> = ({ eachApplicant }) => {
           ? [...eachApplicant.video_request, job]
           : [{ ...job }],
       })
-      console.log('REQUESTED:', requested)
       const updateVideoRequestApplicants = job.applicants.map((eachApplicant) =>
         eachApplicant.candidateId === requested.editedProfile.candidateId
           ? { ...requested.editedProfile }
@@ -48,7 +50,6 @@ const CompanyApplicantSubPage: React.FC<Props> = ({ eachApplicant }) => {
         ...job,
         applicants: updateVideoRequestApplicants,
       })
-      console.log('REQUESTED 2: ', requested2)
       if (requested.status && requested2.status) {
         dispatch(postOrEditProfileActionCreator({ ...requested.editedProfile }))
         dispatch(postOrEditJobActionCreator({ ...requested2.editedJob }))
@@ -56,6 +57,17 @@ const CompanyApplicantSubPage: React.FC<Props> = ({ eachApplicant }) => {
       }
     }
   }
+
+  useEffect(() => {
+    const [currentVideo] =
+      job && job.videoReceived
+        ? job.videoReceived.filter(
+            (video) => video.candidateId === eachApplicant.candidateId,
+          )
+        : [null]
+    dispatch(currentVideoActionCreator(currentVideo))
+    currentVideo && localStorage.setItem('currentVideo', currentVideo.videoBlob)
+  }, [dispatch, eachApplicant.candidateId, job])
 
   return (
     <div className={styles.container}>
@@ -97,9 +109,19 @@ const CompanyApplicantSubPage: React.FC<Props> = ({ eachApplicant }) => {
                   {capitalize(eachApplicant.hobbies)}
                 </p>
               </div>
-              <div className={styles.request_status} onClick={onRequest}>
-                Request Video Interview
-              </div>
+              {currentVideo &&
+              JSON.stringify(currentVideo.videoBlob) !== '{}' ? (
+                <Link
+                  className={styles.request_status}
+                  to="/company/watch-video"
+                >
+                  Watch Interview Video
+                </Link>
+              ) : (
+                <div className={styles.request_status} onClick={onRequest}>
+                  Request Video Interview
+                </div>
+              )}
             </div>
             <div className={styles.expandButton} onClick={() => setInfo(!info)}>
               <MdKeyboardArrowDown size="30px" />

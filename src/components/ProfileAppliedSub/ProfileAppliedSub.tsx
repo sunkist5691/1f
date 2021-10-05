@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './ProfileAppliedSub.module.css'
 import { Job, State } from '../../store/type'
 import { useSelector } from 'react-redux'
@@ -7,15 +7,31 @@ import { countExp } from '../../service/countExp'
 import { BsDot } from 'react-icons/bs'
 import { MdWork, MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md'
 import { ImClock } from 'react-icons/im'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 interface Props {
   eachJob: Job
 }
 
 const ProfileAppliedSub: React.FC<Props> = ({ eachJob }) => {
+  const [videoReceived, setVideoReceived] = useState(false)
+  const history = useHistory()
   const [info, setInfo] = useState(false)
   const profile = useSelector((state: State) => state.profile)
+
+  useEffect(() => {
+    console.log('WHYYYY:', eachJob)
+    if (eachJob.videoReceived) {
+      setVideoReceived((prevBool) =>
+        eachJob.videoReceived.some((eachVideo) => {
+          if (profile && profile.candidateId === eachVideo.candidateId)
+            return !prevBool
+          return prevBool
+        }),
+      )
+    }
+  }, [eachJob, eachJob.videoReceived, profile])
+
   return (
     <div className={styles.container}>
       <div className={styles.container_sub}>
@@ -53,14 +69,28 @@ const ProfileAppliedSub: React.FC<Props> = ({ eachJob }) => {
                   {capitalize(eachJob.job_type)}
                 </p>
               </div>
-              {profile &&
+              {!videoReceived &&
+                profile &&
                 profile.video_request.some(
                   (eachRequest) => eachRequest.userId === eachJob.userId,
                 ) && (
-                  <Link to="/record-video" className={styles.record_video}>
+                  <div
+                    className={styles.record_video}
+                    onClick={() =>
+                      history.push('/record-video', {
+                        userId: eachJob.userId,
+                        candidateId: profile.candidateId,
+                      })
+                    }
+                  >
                     Start Video Interview
-                  </Link>
+                  </div>
                 )}
+              {videoReceived && profile && (
+                <div className={styles.record_video}>
+                  Video Interview Completed
+                </div>
+              )}
             </div>
             <div className={styles.expandButton} onClick={() => setInfo(!info)}>
               <MdKeyboardArrowDown size="30px" />

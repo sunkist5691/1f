@@ -15,6 +15,7 @@ export interface Job {
   experience_level: string
   description: string
   applicants: Profile[]
+  videoReceived: VideoReceived[]
 }
 
 export interface Profile {
@@ -33,8 +34,15 @@ export interface Profile {
 export interface State {
   user: User | null
   preUser: any
+  currentVideo: any
   profile: Profile | null
   job: Job | null
   jobAll: Job[] | []
   search: string
+}
+
+export interface VideoReceived {
+  userId: string
+  candidateId: string
+  videoBlob: any
 }

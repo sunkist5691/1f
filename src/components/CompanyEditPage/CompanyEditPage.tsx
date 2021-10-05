@@ -53,12 +53,14 @@ const CompanyEditPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
       const edited = await jobService.edit(user, {
         ...form,
         applicants: job.applicants,
+        videoReceived: job.videoReceived,
       })
       if (edited.status && edited.editedJob) {
         dispatch(
           postOrEditJobActionCreator({
             ...form,
             applicants: job.applicants,
+            videoReceived: job.videoReceived,
           }),
         )
         if (formRef && formRef.current) formRef.current.reset()
